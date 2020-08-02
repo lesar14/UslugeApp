@@ -13,27 +13,39 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:usesCleartextTraffic="true">
-        <activity android:name="com.example.UslugeApp.AdsOrdered"/>
-        <activity android:name="com.example.UslugeApp.AdsToDo" />
-        <activity android:name="com.example.UslugeApp.AdDetails" />
-        <activity android:name="com.example.UslugeApp.NewAd" />
-        <activity android:name="com.example.UslugeApp.ProfileEdit" />
-        <activity android:name="com.example.UslugeApp.MyAds" />
-        <activity android:name="com.example.UslugeApp.Profile" />
-        <activity android:name="com.example.UslugeApp.Register">
+        android:usesCleartextTraffic="true"
+        >
+
+        <activity android:name="com.example.UslugeApp.AdsOrdered"
+            android:screenOrientation="portrait"/>
+        <activity android:name="com.example.UslugeApp.AdsToDo"
+            android:screenOrientation="portrait"/>
+        <activity android:name="com.example.UslugeApp.AdDetails"
+            android:screenOrientation="portrait"/>
+        <activity android:name="com.example.UslugeApp.NewAd"
+            android:screenOrientation="portrait"/>
+        <activity android:name="com.example.UslugeApp.ProfileEdit"
+            android:screenOrientation="portrait"/>
+        <activity android:name="com.example.UslugeApp.MyAds"
+            android:screenOrientation="portrait"/>
+        <activity android:name="com.example.UslugeApp.Profile"
+            android:screenOrientation="portrait"/>
+        <activity android:name="com.example.UslugeApp.Register"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.example.UslugeApp.Login" />
-        <activity android:name="com.example.UslugeApp.SearchAds" />
+        <activity android:name="com.example.UslugeApp.Login"
+            android:screenOrientation="portrait"/>
+        <activity android:name="com.example.UslugeApp.SearchAds"
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
-            android:theme="@style/Base.Theme.AppCompat" />
-
+            android:theme="@style/Base.Theme.AppCompat"
+            android:screenOrientation="portrait"/>
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
