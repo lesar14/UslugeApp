@@ -1,4 +1,4 @@
-package com.example.login_register;
+package com.example.UslugeApp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
