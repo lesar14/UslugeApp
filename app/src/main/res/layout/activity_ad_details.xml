@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/secondary"
+    tools:context=".AdDetails">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:paddingTop="10dp"
+            android:orientation="vertical"
+            android:background="@color/secondary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/adImage"
+                android:layout_width="280dp"
+                android:layout_height="280dp"
+                android:layout_gravity="center"
+                android:padding="10dp"
+                android:elevation="5dp"
+                android:background="@color/secondary"
+                app:srcCompat="@drawable/ic_image_black_24dp"
+                android:contentDescription="@string/slika_oglasa" />
+
+            <TextView
+                android:id="@+id/adName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/secondary"
+                android:fontFamily="@font/bree_serif"
+                android:gravity="center"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp"
+                android:text="@string/naziv"
+                android:textColor="@color/primary"
+                android:textSize="23sp"
+                android:textStyle="bold" />
+
+                <TextView
+                    android:fontFamily="@font/bree_serif"
+                    android:id="@+id/adDesc"
+                    android:textColor="@color/black"
+                    android:background="@color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
+                    android:gravity="clip_horizontal"
+                    android:scrollbars="vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingEnd="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="@string/opis"
+                    android:textSize="16sp" />
+
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/ClientNameTxt"
+                    android:layout_width="160dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginBottom="10dp"
+                    android:textColor="@color/primary"
+                    android:textSize="18sp"
+                    android:visibility="gone"
+                    android:fontFamily="@font/bree_serif"
+                    android:text="@string/ime_klijenta_txt"/>
+
+                <TextView
+                    android:id="@+id/adClientName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginBottom="10dp"
+                    android:textColor="@color/primary"
+                    android:text="@string/ime_klijenta"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/bree_serif"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/AdvertiserTxt"
+                    android:layout_width="160dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginBottom="10dp"
+                    android:textColor="@color/primary"
+                    android:textSize="18sp"
+                    android:visibility="gone"
+                    android:fontFamily="@font/bree_serif"
+                    android:text="@string/oglasivac_txt"/>
+
+                <TextView
+                    android:id="@+id/adAdvertiser"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginBottom="10dp"
+                    android:textColor="@color/primary"
+                    android:text="@string/oglasivac"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/bree_serif"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/CityText"
+                    android:layout_width="160dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/bree_serif"
+                    android:textColor="@color/primary"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginBottom="10dp"
+                    android:textSize="18sp"
+                    android:visibility="gone"
+                    android:text="@string/lokacija_txt"/>
+
+                <TextView
+                    android:id="@+id/adCity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/bree_serif"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginBottom="10dp"
+                    android:textColor="@color/primary"
+                    android:text="@string/lokacija"
+                    android:textSize="18sp"
+                    android:visibility="gone" />
+
+            </LinearLayout>
+
+
+
+
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/ClientPhoneTxt"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="10dp"
+                android:textSize="18sp"
+                android:textColor="@color/primary"
+                android:visibility="gone"
+                android:fontFamily="@font/bree_serif"
+                android:text="@string/kontakt_broj_txt"/>
+
+            <TextView
+                android:id="@+id/adClientPhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="10dp"
+                android:text="@string/kontakt_broj"
+                android:textColor="@color/primary"
+                android:textSize="18sp"
+                android:fontFamily="@font/bree_serif"
+                android:visibility="gone" />
+        </LinearLayout>
+
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/adDateTxt"
+                    android:layout_width="160dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginBottom="10dp"
+                    android:textSize="18sp"
+                    android:textColor="@color/primary"
+                    android:visibility="gone"
+                    android:fontFamily="@font/bree_serif"
+                    android:text="@string/datum_dodavanja_txt"/>
+
+                <TextView
+                    android:id="@+id/adDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="@string/datum_dodavanja"
+                    android:textColor="@color/primary"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/baloo"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+
+            <Button
+                android:id="@+id/deleteAd"
+                android:layout_width="200dp"
+                android:layout_height="55dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"
+                android:text="@string/brisanje_oglasa"
+                android:textColor="@color/white"
+                android:fontFamily="@font/baloo"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/orderAd"
+                android:layout_width="200dp"
+                android:layout_height="55dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"
+                android:text="@string/naruci"
+                android:textColor="@color/white"
+                android:fontFamily="@font/baloo"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/adDone"
+                android:layout_width="200dp"
+                android:layout_height="55dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp"
+                android:text="@string/posao_odraden"
+                android:textColor="@color/white"
+                android:layout_marginBottom="10dp"
+                android:fontFamily="@font/baloo"
+                android:visibility="gone" />
+
+
+            <Button
+                android:id="@+id/adRatingBtn"
+                android:layout_width="200dp"
+                android:layout_height="55dp"
+                android:layout_gravity="center"
+                android:text="@string/ocjeni_oglas"
+                android:layout_marginTop="15dp"
+                android:textColor="@color/white"
+                android:fontFamily="@font/baloo"
+                android:visibility="gone"
+                android:layout_marginBottom="10dp"/>
+
+
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

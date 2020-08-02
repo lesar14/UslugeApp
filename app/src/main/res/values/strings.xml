@@ -1,0 +1,90 @@
+<resources>
+    <string name="app_name">UslugeApp</string>
+    <string name="trazi">Traži</string>
+    <string name="profil">Profil</string>
+    <string name="moji_oglasi">Moji oglasi</string>
+    <string name="za_odraditi">Za odraditi</string>
+    <string name="naruceni_oglasi">Naručeni oglasi</string>
+    <string name="naziv">Naziv</string>
+    <string name="opis">Opis</string>
+    <string name="ime_klijenta_txt">Ime klijenta:</string>
+    <string name="ime_klijenta">Ime klijenta</string>
+    <string name="oglasivac_txt">Oglašivač:</string>
+    <string name="oglasivac">Oglašivač</string>
+    <string name="lokacija_txt">Lokacija:</string>
+    <string name="lokacija">Lokacija</string>
+    <string name="slika_oglasa">Slika oglasa</string>
+    <string name="kontakt_broj_txt">Kontakt broj:</string>
+    <string name="kontakt_broj">Kontakt broj</string>
+    <string name="datum_dodavanja_txt">Datum dodavanja:</string>
+    <string name="brisanje_oglasa">Brisanje oglasa</string>
+    <string name="naruci">Naruči</string>
+    <string name="posao_odraden">Posao odrađen</string>
+    <string name="ocjeni_oglas">Ocjeni oglas</string>
+    <string name="dodaj_oglas">Dodaj oglas</string>
+    <string name="ime_i_prezime">Ime i prezime</string>
+    <string name="email">Email</string>
+    <string name="grad">Grad</string>
+    <string name="izmjena_profila">Izmjena profila</string>
+    <string name="povratak">Povratak</string>
+    <string name="logo">logo</string>
+    <string name="e_mail">E-mail</string>
+    <string name="lozinka">Lozinka</string>
+    <string name="prijava">Prijava</string>
+    <string name="novi_korisnik">Novi korisnik?</string>
+    <string name="zaboravljena_lozinka">Zaboravljena lozinka?</string>
+    <string name="dodavanje_novog_oglasa">Dodavanje novog oglasa</string>
+    <string name="zupanija">Županija</string>
+    <string name="resetiranje_lozinke">Resetiranje lozinke</string>
+    <string name="odjava">Odjava</string>
+    <string name="ocjena">Ocjena</string>
+    <string name="ocjenite_oglas">Ocjenite oglas</string>
+    <string name="datum_dodavanja">Datum dodavanja</string>
+    <string name="ponovi_lozinku">Ponovi lozinku</string>
+    <string name="registracija">Registracija</string>
+    <string name="imate_racun">Imate račun?</string>
+
+
+    <string-array name="spinnerCounties">
+        <item> Bjelovarsko - bilogorska </item>
+        <item> Brodsko - posavska </item>
+        <item> Dubrovačko - neretvanska </item>
+        <item> Istarska </item>
+        <item> Karlovačka</item>
+        <item> Koprivničko - križevačka </item>
+        <item> Krapinsko - zagorska </item>
+        <item> Ličko - senjska </item>
+        <item> Međimurska </item>
+        <item> Osječko - baranjska </item>
+        <item> Požeško - slavonska </item>
+        <item> Primorsko - goranska </item>
+        <item> Sisačko - moslavačka </item>
+        <item> Splitsko - dalmatinska </item>
+        <item> Šibensko - kninska </item>
+        <item> Varaždinska </item>
+        <item> Virovitičko - podravska </item>
+        <item> Vukovarsko - srijemska </item>
+        <item> Zadarska </item>
+        <item> Grad Zagreb</item>
+        <item> Zagrebačka</item>
+    </string-array>
+
+    <string-array name="spinnerAdCategories">
+        <item> Ispomoć u kući </item>
+        <item> Građevinske usluge </item>
+        <item> Intelektualne usluge</item>
+        <item> Poduke </item>
+        <item> Prijevozničke usluge </item>
+        <item> Servis elektroničke opreme </item>
+        <item> Medicinske i kozmetičke usluge </item>
+        <item> Uređenje okućnica i vrtova </item>
+        <item> Popravci i održavanje </item>
+        <item> Svečanosti i zabave </item>
+        <item> Turističke usluge </item>
+        <item> Mistika i duhovnost </item>
+        <item> Izrada i montaža namještaja </item>
+        <item> Ostalo </item>
+    </string-array>
+
+
+</resources>
