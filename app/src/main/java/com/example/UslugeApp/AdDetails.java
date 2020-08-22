@@ -12,11 +12,13 @@ import android.os.Bundle;
 import android.text.InputType;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -58,6 +60,7 @@ public class AdDetails extends AppCompatActivity {
     StorageReference storageReference;
     Button deleteAd, orderAd, adDoneBtn, adRatingBtn;
     FirebaseAuth fAuth;
+    ScrollView scrollView;
 
 
     @SuppressLint("SetTextI18n")
@@ -76,7 +79,29 @@ public class AdDetails extends AppCompatActivity {
 
         adName = findViewById(R.id.adName);
         adDesc = findViewById(R.id.adDesc);
+
+
+        scrollView = findViewById(R.id.scrollView);
+
         adDesc.setMovementMethod(new ScrollingMovementMethod());
+
+        scrollView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                adDesc.getParent().requestDisallowInterceptTouchEvent(false);
+                return false;
+            }
+        });
+
+        adDesc.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                adDesc.getParent().requestDisallowInterceptTouchEvent(true);
+                return false;
+            }
+        });
+
+
         adAdvertiser = findViewById(R.id.adAdvertiser);
         adCity = findViewById(R.id.adCity);
         adImage = findViewById(R.id.adImage);
