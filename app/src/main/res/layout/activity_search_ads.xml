@@ -50,7 +50,7 @@
             android:backgroundTint="@color/secondary"
             android:fontFamily="@font/baloo"
             android:text="@string/trazi"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

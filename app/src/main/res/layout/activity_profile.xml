@@ -226,11 +226,11 @@
                         android:layout_width="180dp"
                         android:layout_height="60dp"
                         android:layout_gravity="center"
-                        android:fontFamily="@font/baloo"
                         android:layout_marginTop="15dp"
                         android:backgroundTint="@color/secondary"
+                        android:fontFamily="@font/baloo"
                         android:text="@string/izmjena_profila"
-                        android:textColor="@color/black" />
+                        android:textColor="@color/white" />
 
                     <Button
                         android:id="@+id/resetPasswordLocalBtn"
@@ -238,10 +238,10 @@
                         android:layout_height="60dp"
                         android:layout_gravity="center"
                         android:layout_marginTop="5dp"
-                        android:fontFamily="@font/baloo"
                         android:backgroundTint="@color/secondary"
+                        android:fontFamily="@font/baloo"
                         android:text="@string/resetiranje_lozinke"
-                        android:textColor="@color/black" />
+                        android:textColor="@color/white" />
 
                     <Button
                         android:id="@+id/goBackBtn"
@@ -250,11 +250,11 @@
                         android:layout_gravity="center"
                         android:layout_marginTop="5dp"
                         android:layout_marginBottom="10dp"
-                        android:fontFamily="@font/baloo"
                         android:backgroundTint="@color/secondary"
+                        android:fontFamily="@font/baloo"
                         android:onClick="logout"
                         android:text="@string/odjava"
-                        android:textColor="@color/black" />
+                        android:textColor="@color/white" />
 
                 </LinearLayout>
 
