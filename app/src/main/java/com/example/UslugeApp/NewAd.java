@@ -173,7 +173,7 @@ public class NewAd extends AppCompatActivity {
                 documentReference.set(ad).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Log.d(TAG, "onSuccess: user Profile is created for");
+                        Log.d(TAG, "onSuccess");
                         Toast.makeText(NewAd.this, "Uspješno", Toast.LENGTH_SHORT).show();
                     }
                 }).addOnFailureListener(new OnFailureListener() {

@@ -21,6 +21,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -96,12 +97,16 @@ public class Login extends AppCompatActivity {
             public void onClick(View v) {
 
                 final EditText resetMail = new EditText(v.getContext());
-                AlertDialog.Builder passwordResetDialog = new AlertDialog.Builder(v.getContext());
-                passwordResetDialog.setTitle("Resetiranje lozinke?");
-                passwordResetDialog.setMessage("Unesite svoju Email adresu.");
-                passwordResetDialog.setView(resetMail);
+                MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(Login.this);
+                builder.setTitle("Resetiranje lozinke?");
+                builder.setMessage("Unesite svoju Email adresu.");
+                builder.setBackground(getResources().getDrawable(R.drawable.alert_dialog_bg));
+                builder.setView(resetMail);
 
-                passwordResetDialog.setPositiveButton("Da", new DialogInterface.OnClickListener() {
+
+
+
+                builder.setPositiveButton("Da", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         // extract the mail and send reset link
@@ -128,14 +133,14 @@ public class Login extends AppCompatActivity {
                     }
                 });
 
-                passwordResetDialog.setNegativeButton("Ne", new DialogInterface.OnClickListener() {
+                builder.setNegativeButton("Ne", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         // close
                     }
                 });
 
-                passwordResetDialog.create().show();
+                builder.show();
 
             }
         });

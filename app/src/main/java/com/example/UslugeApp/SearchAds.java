@@ -146,6 +146,7 @@ public class SearchAds extends AppCompatActivity {
                     @Override
                     protected void onBindViewHolder(@NonNull AdsViewHolder holder, int position, @NonNull AdModel model) {
 
+
                         if (user.equals(model.getUserID())){
                             holder.itemView.setVisibility(View.GONE);
                             holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(0, 0));

@@ -144,11 +144,11 @@
                     android:id="@+id/saveProfileBtn"
                     android:layout_width="200dp"
                     android:layout_height="55dp"
-                    android:backgroundTint="@color/secondary"
                     android:layout_gravity="center"
                     android:layout_marginTop="15dp"
+                    android:backgroundTint="@color/secondary"
                     android:fontFamily="@font/baloo"
-                    android:text="@string/izmjena_profila"
+                    android:text="@string/spremi_promjene"
                     android:textColor="@color/black" />
 
 

@@ -141,7 +141,6 @@ public class Register extends AppCompatActivity {
                                     Log.d(TAG, "onFailure: " + e.toString());
                                 }
                             });
-
                             startActivity(new Intent(getApplicationContext(), SearchAds.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
                         }else {
                             Toast.makeText(Register.this, "Greška "+ task.getException().getMessage(), Toast.LENGTH_SHORT).show();
