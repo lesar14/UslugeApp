@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/secondary"
+
     tools:context=".AdDetails">
 
     <ScrollView
@@ -22,7 +22,7 @@
             android:layout_height="0dp"
             android:paddingTop="10dp"
             android:orientation="vertical"
-            android:background="@color/secondary"
+            android:background="@drawable/bg_gray"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -34,7 +34,7 @@
                 android:layout_gravity="center"
                 android:padding="10dp"
                 android:elevation="5dp"
-                android:background="@color/secondary"
+                android:background="@drawable/bg_gray"
                 app:srcCompat="@drawable/ic_image_black_24dp"
                 android:contentDescription="@string/slika_oglasa" />
 
@@ -42,7 +42,7 @@
                 android:id="@+id/adName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/secondary"
+
                 android:fontFamily="@font/bree_serif"
                 android:gravity="center"
                 android:paddingTop="15dp"

@@ -58,7 +58,7 @@ public class SearchAds extends AppCompatActivity {
         ArrayAdapter adCategorySpinnerAdapter = ArrayAdapter.createFromResource(
                 this,
                 R.array.spinnerAdCategories,
-                R.layout.spinner_text
+                R.layout.spinner_text_2
         );
         adCategorySpinnerAdapter.setDropDownViewResource(R.layout.spinner_dropdown_layout);
         adCategorySearch.setAdapter(adCategorySpinnerAdapter);
@@ -68,7 +68,7 @@ public class SearchAds extends AppCompatActivity {
         ArrayAdapter adCountySpinnerAdapter = ArrayAdapter.createFromResource(
                 this,
                 R.array.spinnerCounties,
-                R.layout.spinner_text
+                R.layout.spinner_text_2
         );
         adCountySpinnerAdapter.setDropDownViewResource(R.layout.spinner_dropdown_layout);
         countySearch.setAdapter(adCountySpinnerAdapter);
