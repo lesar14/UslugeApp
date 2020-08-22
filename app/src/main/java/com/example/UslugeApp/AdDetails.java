@@ -53,7 +53,7 @@ public class AdDetails extends AppCompatActivity {
     Boolean myAds, orderedAds, adsToDo;
     Boolean  adExists = false;
     FirebaseFirestore fStore;
-    TextView adName, adDesc, adAdvertiser, adCity, adClientNameTV, PhoneTV, CityTxt, AdvertiserTxt, NameTxt, PhoneTxt, adDateTV, adDateTxt;
+    TextView adName, adDesc, adAdvertiser, adCity, adClientNameTV, PhoneTV, CityTxt, AdvertiserTxt, NameTxt, PhoneTxt, adDateTV, adDateTxt, adRatingTxt, adRatingTV;
     ImageView adImage;
     StorageReference storageReference;
     Button deleteAd, orderAd, adDoneBtn, adRatingBtn;
@@ -94,6 +94,8 @@ public class AdDetails extends AppCompatActivity {
         PhoneTxt = findViewById(R.id.ClientPhoneTxt);
         adDateTV = findViewById(R.id.adDate);
         adDateTxt = findViewById(R.id.adDateTxt);
+        adRatingTxt = findViewById(R.id.adRatingTxt);
+        adRatingTV = findViewById(R.id.adRating);
 
 
         fAuth = FirebaseAuth.getInstance();
@@ -171,7 +173,6 @@ public class AdDetails extends AppCompatActivity {
             adDateTV.setText(data1.getStringExtra("adDate"));
             adDateTxt.setText("Datum narudžbe: ");
 
-
             String adImageTxt = data1.getStringExtra("adImage");
             Picasso.get().load(adImageTxt).into(adImage);
 
@@ -234,6 +235,8 @@ public class AdDetails extends AppCompatActivity {
                 CityTxt.setVisibility(View.VISIBLE);
                 PhoneTxt.setVisibility(View.VISIBLE);
                 PhoneTV.setVisibility(View.VISIBLE);
+                adRatingTxt.setVisibility(View.VISIBLE);
+                adRatingTV.setVisibility(View.VISIBLE);
 
                 adNameAdvertised = documentSnapshot.getString("adName");
                 adName.setText(adNameAdvertised);
@@ -245,6 +248,10 @@ public class AdDetails extends AppCompatActivity {
                 Picasso.get().load(adImageAdvertised).into(adImage);
 
                 adAdvertiserID = documentSnapshot.getString("userID");
+
+                Intent data1 = getIntent();
+                String adRating = data1.getStringExtra("adRating");
+                adRatingTV.setText(adRating);
 
                 DocumentReference documentReference1 = fStore.collection("users").document(String.valueOf(adAdvertiserID));
                 documentReference1.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {

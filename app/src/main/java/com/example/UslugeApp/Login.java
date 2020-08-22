@@ -1,4 +1,5 @@
 package com.example.UslugeApp;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -58,12 +59,12 @@ public class Login extends AppCompatActivity {
                 String email = mEmail.getText().toString().trim();
                 String password = mPassword.getText().toString().trim();
 
-                if (TextUtils.isEmpty(email)){
+                if (TextUtils.isEmpty(email)) {
                     mEmail.setError("E-mail je obavezan");
                     return;
                 }
 
-                if (TextUtils.isEmpty(password)){
+                if (TextUtils.isEmpty(password)) {
                     mPassword.setError("Lozinka je obavezna");
                     return;
                 }
@@ -76,14 +77,14 @@ public class Login extends AppCompatActivity {
                 progressBar.setVisibility(View.VISIBLE);
 
                 // authenticate user
-                fAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                fAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()){
+                        if (task.isSuccessful()) {
                             Toast.makeText(Login.this, "Uspješna prijava.", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(getApplicationContext(), SearchAds.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
 
-                        }else {
+                        } else {
                             Toast.makeText(Login.this, "Pogrešan E-mail i/ili lozinka.", Toast.LENGTH_SHORT).show();
                             progressBar.setVisibility(View.GONE);
                         }
@@ -105,30 +106,24 @@ public class Login extends AppCompatActivity {
                 resetPassword.setBackground(getResources().getDrawable(R.drawable.alert_dialog_bg));
                 resetPassword.setView(resetMail);
 
-
                 resetPassword.setPositiveButton("Da", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        // extract the mail and send reset link
-
                         String mail = resetMail.getText().toString();
-
                         if (mail.length() < 1) {
-                            Toast.makeText(Login.this, "Niste unijeli Email.", Toast.LENGTH_SHORT).show();
-                        }
-
-                        else {
-                        fAuth.sendPasswordResetEmail(mail).addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                Toast.makeText(Login.this, "Link za resetiranje lozinke je poslan na Vaš Email.", Toast.LENGTH_SHORT).show();
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(Login.this, "Greška! " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                            }
-                        });
+                            Toast.makeText(Login.this, "Unesi svoj E-mail.", Toast.LENGTH_SHORT).show();
+                        } else {
+                            fAuth.sendPasswordResetEmail(mail).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Toast.makeText(Login.this, "Link za resetiranje lozinke je poslan na Vaš E-mail.", Toast.LENGTH_SHORT).show();
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(Login.this, "Greška! " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+                            });
                         }
                     }
                 });
@@ -139,9 +134,7 @@ public class Login extends AppCompatActivity {
                         // close
                     }
                 });
-
                 resetPassword.show();
-
             }
         });
 
@@ -149,7 +142,7 @@ public class Login extends AppCompatActivity {
         goToRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),Register.class));
+                startActivity(new Intent(getApplicationContext(), Register.class));
             }
         });
     }

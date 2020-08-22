@@ -86,20 +86,20 @@ public class SearchAds extends AppCompatActivity {
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()){
+                switch (item.getItemId()) {
                     case R.id.nav_home:
                         startActivity(new Intent(getApplicationContext(), SearchAds.class));
-                        overridePendingTransition(0,0);
+                        overridePendingTransition(0, 0);
                         return true;
 
                     case R.id.nav_profile:
-                        startActivity(new Intent(getApplicationContext(),Profile.class));
-                        overridePendingTransition(0,0);
+                        startActivity(new Intent(getApplicationContext(), Profile.class));
+                        overridePendingTransition(0, 0);
                         return true;
 
                     case R.id.nav_my_ads:
-                        startActivity(new Intent(getApplicationContext(),MyAds.class));
-                        overridePendingTransition(0,0);
+                        startActivity(new Intent(getApplicationContext(), MyAds.class));
+                        overridePendingTransition(0, 0);
                         return true;
 
                     case R.id.nav_ordered_ads:
@@ -119,12 +119,9 @@ public class SearchAds extends AppCompatActivity {
         searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 String categoryID = String.valueOf(adCategorySearch.getSelectedItemId());
                 String county = String.valueOf(countySearch.getSelectedItemId());
-
                 Query query = firebaseFirestore.collection("adCategory").document(categoryID).collection("ads").whereEqualTo("adCounty", county);
-
                 PagedList.Config config = new PagedList.Config.Builder()
                         .setInitialLoadSizeHint(10)
                         .setPageSize(3)
@@ -145,28 +142,25 @@ public class SearchAds extends AppCompatActivity {
 
                     @Override
                     protected void onBindViewHolder(@NonNull AdsViewHolder holder, int position, @NonNull AdModel model) {
-
-
-                        if (user.equals(model.getUserID())){
+                        if (user.equals(model.getUserID())) {
                             holder.itemView.setVisibility(View.GONE);
                             holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(0, 0));
-                        }
-
-                       else {
-                        holder.ad_name.setText(model.getAdName());
-                        holder.ad_desc.setText(model.getAdDesc());
-                        Double rating = model.getAdRating();
-                        if (rating.equals(0.0)){
+                        } else {
+                            holder.ad_name.setText(model.getAdName());
+                            holder.ad_desc.setText(model.getAdDesc());
+                            Double rating = model.getAdRating();
+                            holder.ad_rating_txt = String.format("%.2f", rating);
+                            if (rating.equals(0.0)) {
                                 holder.ad_rating.setText("N/A");
-                        }else {
-                                holder.ad_rating.setText(String.format( "%.2f", rating));
+                            } else {
+                                holder.ad_rating.setText(String.format("%.2f", rating));
                             }
-                        Picasso.get().load(model.getAdImageUrl()).into(holder.ad_image);
-                        holder.ad_ID = model.getAdID();
-                        holder.ad_county = model.getAdCounty();
-                        holder.ad_category = model.getAdCategory();
-                        holder.ad_date.setText(model.getAdDate());
-                       }
+                            Picasso.get().load(model.getAdImageUrl()).into(holder.ad_image);
+                            holder.ad_ID = model.getAdID();
+                            holder.ad_county = model.getAdCounty();
+                            holder.ad_category = model.getAdCategory();
+                            holder.ad_date.setText(model.getAdDate());
+                        }
                     }
 
                     @Override
@@ -174,21 +168,21 @@ public class SearchAds extends AppCompatActivity {
                         super.onLoadingStateChanged(state);
                         switch (state) {
                             case LOADING_INITIAL:
-                               // Toast.makeText(MainActivity.this, "Učitavanje početnih podataka", Toast.LENGTH_SHORT).show();
+                                // Toast.makeText(MainActivity.this, "Učitavanje početnih podataka", Toast.LENGTH_SHORT).show();
                                 break;
                             case LOADING_MORE:
-                             //   Toast.makeText(MainActivity.this, "Ucitavanje nove stranice", Toast.LENGTH_SHORT).show();
+                                //   Toast.makeText(MainActivity.this, "Ucitavanje nove stranice", Toast.LENGTH_SHORT).show();
                                 break;
                             case FINISHED:
-                                if (getItemCount()==0) {
+                                if (getItemCount() == 0) {
                                     Toast.makeText(SearchAds.this, "Trenutno nema oglasa koji zadovoljavaju postavljeni kriterij", Toast.LENGTH_SHORT).show();
                                 }
                                 break;
                             case ERROR:
-                            //    Toast.makeText(MainActivity.this, "Greska", Toast.LENGTH_SHORT).show();
+                                //    Toast.makeText(MainActivity.this, "Greska", Toast.LENGTH_SHORT).show();
                                 break;
                             case LOADED:
-                              //  Toast.makeText(MainActivity.this, "Ukupan broj ucitanih itema: " + getItemCount(), Toast.LENGTH_SHORT).show();
+                                //  Toast.makeText(MainActivity.this, "Ukupan broj ucitanih itema: " + getItemCount(), Toast.LENGTH_SHORT).show();
                                 break;
                         }
                     }
@@ -200,7 +194,7 @@ public class SearchAds extends AppCompatActivity {
         });
     }
 
-    private class AdsViewHolder  extends RecyclerView.ViewHolder {
+    private class AdsViewHolder extends RecyclerView.ViewHolder {
 
         private TextView ad_name;
         private TextView ad_desc;
@@ -209,8 +203,8 @@ public class SearchAds extends AppCompatActivity {
         private String ad_ID;
         private String ad_county;
         private String ad_category;
+        private String ad_rating_txt;
         private TextView ad_date;
-
 
 
         public AdsViewHolder(@NonNull View itemView) {
@@ -227,15 +221,17 @@ public class SearchAds extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
 
-                    Intent i = new Intent(v.getContext(),AdDetails.class);
+                    Intent i = new Intent(v.getContext(), AdDetails.class);
                     i.putExtra("adID", ad_ID);
                     i.putExtra("adCounty", ad_county);
                     i.putExtra("adCategory", ad_category);
+                    i.putExtra("adRating", ad_rating_txt);
                     startActivity(i);
                 }
             });
         }
     }
+
     public void onBackPressed() {
         this.moveTaskToBack(true);
     }

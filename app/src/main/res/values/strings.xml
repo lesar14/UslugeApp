@@ -45,6 +45,8 @@
     <string name="imate_racun">Imate račun?</string>
     <string name="spremi_promjene">Spremi promjene</string>
     <string name="promjena_lozinke">Promjena lozinke</string>
+    <string name="ocjena_oglasa_txt">Ocjena oglasa: </string>
+    <string name="ocjena_oglasa">Ocjena oglasa</string>
 
 
     <string-array name="spinnerCounties">
