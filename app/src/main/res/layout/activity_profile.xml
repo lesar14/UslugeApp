@@ -23,7 +23,7 @@
         android:id="@+id/rellay1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/secondary"
+        android:background="@drawable/bg_gray"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -240,7 +240,7 @@
                         android:layout_marginTop="5dp"
                         android:backgroundTint="@color/secondary"
                         android:fontFamily="@font/baloo"
-                        android:text="@string/resetiranje_lozinke"
+                        android:text="@string/promjena_lozinke"
                         android:textColor="@color/white" />
 
                     <Button

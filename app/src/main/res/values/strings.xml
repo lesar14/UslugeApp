@@ -44,6 +44,7 @@
     <string name="registracija">Registracija</string>
     <string name="imate_racun">Imate račun?</string>
     <string name="spremi_promjene">Spremi promjene</string>
+    <string name="promjena_lozinke">Promjena lozinke</string>
 
 
     <string-array name="spinnerCounties">

@@ -276,11 +276,11 @@ public class AdDetails extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
 
-                            MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(AdDetails.this);
-                            builder.setTitle("Brisanje oglasa?");
-                            builder.setBackground(getResources().getDrawable(R.drawable.alert_dialog_bg));
+                            MaterialAlertDialogBuilder delete = new MaterialAlertDialogBuilder(AdDetails.this);
+                            delete.setTitle("Brisanje oglasa?");
+                            delete.setBackground(getResources().getDrawable(R.drawable.alert_dialog_bg));
 
-                            builder.setPositiveButton("Da", new DialogInterface.OnClickListener() {
+                            delete.setPositiveButton("Da", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     DocumentReference documentRef = fStore.collection("adCategory").document(adCategory).collection("ads").document(adID);
@@ -317,14 +317,14 @@ public class AdDetails extends AppCompatActivity {
 
                             });
 
-                            builder.setNegativeButton("Ne", new DialogInterface.OnClickListener() {
+                            delete.setNegativeButton("Ne", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
 
                                 }
                             });
 
-                            builder.show();
+                            delete.show();
                         }
                     });
                 }
@@ -426,13 +426,13 @@ public class AdDetails extends AppCompatActivity {
                 final EditText adRatingUser = new EditText(v.getContext());
                 adRatingUser.setInputType(InputType.TYPE_CLASS_NUMBER);
 
-                MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(AdDetails.this);
-                builder.setTitle("Ocjenite oglas");
-                builder.setView(adRatingUser);
+                MaterialAlertDialogBuilder rating = new MaterialAlertDialogBuilder(AdDetails.this);
+                rating.setTitle("Ocjenite oglas");
+                rating.setView(adRatingUser);
                 // builder.setIcon(R.drawable.ic_rating_star_3);
-                builder.setBackground(getResources().getDrawable(R.drawable.alert_dialog_bg));
+                rating.setBackground(getResources().getDrawable(R.drawable.alert_dialog_bg));
 
-                builder.setPositiveButton("Da", new DialogInterface.OnClickListener() {
+                rating.setPositiveButton("Da", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         String ratingString = adRatingUser.getText().toString();
@@ -494,14 +494,14 @@ public class AdDetails extends AppCompatActivity {
 
                 });
 
-                builder.setNegativeButton("Ne", new DialogInterface.OnClickListener() {
+                rating.setNegativeButton("Ne", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
                     }
                 });
 
-                builder.show();
+                rating.show();
 
             }
         });

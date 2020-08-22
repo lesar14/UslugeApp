@@ -24,6 +24,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
@@ -150,17 +151,19 @@ public class Profile extends AppCompatActivity {
         resetPasswordLocal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final EditText resetPassword = new EditText(v.getContext());
-                AlertDialog.Builder passwordResetDialog = new AlertDialog.Builder(v.getContext());
-                passwordResetDialog.setTitle("Resetiranje lozinke?");
-                passwordResetDialog.setMessage("Unesite novu lozinku.");
-                passwordResetDialog.setView(resetPassword);
+                final EditText newPass = new EditText(v.getContext());
 
-                passwordResetDialog.setPositiveButton("Da", new DialogInterface.OnClickListener() {
+                MaterialAlertDialogBuilder resetPassword = new MaterialAlertDialogBuilder(Profile.this);
+                resetPassword.setTitle("Resetiranje lozinke?");
+                resetPassword.setMessage("Unesite novu lozinku.");
+                resetPassword.setBackground(getResources().getDrawable(R.drawable.alert_dialog_bg));
+                resetPassword.setView(newPass);
+
+                resetPassword.setPositiveButton("Da", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         // extract the mail and send reset link
-                        String newPassword = resetPassword.getText().toString();
+                        String newPassword = newPass.getText().toString();
 
                         if (newPassword.length() < 6) {
                             Toast.makeText(Profile.this, "Lozinka mora imati minimalno 6 znakova.", Toast.LENGTH_SHORT).show();
@@ -182,13 +185,13 @@ public class Profile extends AppCompatActivity {
                     }
                 });
 
-                passwordResetDialog.setNegativeButton("Ne", new DialogInterface.OnClickListener() {
+                resetPassword.setNegativeButton("Ne", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         // close
                     }
                 });
-                passwordResetDialog.create().show();
+                resetPassword.show();
             }
         });
 

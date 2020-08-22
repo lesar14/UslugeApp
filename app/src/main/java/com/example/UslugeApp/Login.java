@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.WindowManager;
@@ -97,16 +98,15 @@ public class Login extends AppCompatActivity {
             public void onClick(View v) {
 
                 final EditText resetMail = new EditText(v.getContext());
-                MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(Login.this);
-                builder.setTitle("Resetiranje lozinke?");
-                builder.setMessage("Unesite svoju Email adresu.");
-                builder.setBackground(getResources().getDrawable(R.drawable.alert_dialog_bg));
-                builder.setView(resetMail);
+                resetMail.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                MaterialAlertDialogBuilder resetPassword = new MaterialAlertDialogBuilder(Login.this);
+                resetPassword.setTitle("Resetiranje lozinke?");
+                resetPassword.setMessage("Unesite svoju Email adresu.");
+                resetPassword.setBackground(getResources().getDrawable(R.drawable.alert_dialog_bg));
+                resetPassword.setView(resetMail);
 
 
-
-
-                builder.setPositiveButton("Da", new DialogInterface.OnClickListener() {
+                resetPassword.setPositiveButton("Da", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         // extract the mail and send reset link
@@ -133,14 +133,14 @@ public class Login extends AppCompatActivity {
                     }
                 });
 
-                builder.setNegativeButton("Ne", new DialogInterface.OnClickListener() {
+                resetPassword.setNegativeButton("Ne", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         // close
                     }
                 });
 
-                builder.show();
+                resetPassword.show();
 
             }
         });
