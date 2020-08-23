@@ -147,6 +147,7 @@ public class AdDetails extends AppCompatActivity {
             adDateTxt.setVisibility(View.VISIBLE);
 
 
+
             Intent data1 = getIntent();
             adName.setText(data1.getStringExtra("adName"));
             adDesc.setText(data1.getStringExtra("adDesc"));
@@ -171,7 +172,11 @@ public class AdDetails extends AppCompatActivity {
 
             if (adRatingBoolean){
             adRatingBtn.setVisibility(View.VISIBLE);
+            }else {
+                Toast.makeText(this, "Nakon što usluga bude odrađena, imat ćete mogućnost da ju ocjenite.", Toast.LENGTH_LONG).show();
             }
+
+
             String adImageTxt = data1.getStringExtra("adImage");
             Picasso.get().load(adImageTxt).into(adImage);
         }
