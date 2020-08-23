@@ -503,14 +503,14 @@ public class AdDetails extends AppCompatActivity {
                                         @Override
                                         public void onSuccess(Void aVoid) {
                                             Log.d(TAG, "Success");
-                                            Toast.makeText(AdDetails.this, "Uspješno ocjenjeno", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(AdDetails.this, "Ocjena uspješno unesena.", Toast.LENGTH_SHORT).show();
 
                                         }
                                     }).addOnFailureListener(new OnFailureListener() {
                                         @Override
                                         public void onFailure(@NonNull Exception e) {
                                             Log.d(TAG, "onFailure: " + e.toString());
-                                            Toast.makeText(AdDetails.this, "Neuspješno", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(AdDetails.this, "Neuspješno ocijenjivanje", Toast.LENGTH_SHORT).show();
                                         }
                                     });
                                 }
