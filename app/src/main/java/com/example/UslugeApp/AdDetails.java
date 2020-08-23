@@ -126,7 +126,7 @@ public class AdDetails extends AppCompatActivity {
         fAuth = FirebaseAuth.getInstance();
         currentUser = Objects.requireNonNull(fAuth.getCurrentUser()).getUid();
 
-        Intent data = getIntent();
+        final Intent data = getIntent();
         adID = data.getStringExtra("adID");
         adCategory = data.getStringExtra("adCategory");
         adCategoryOrdered = data.getStringExtra("adCategoryOrdered");
@@ -275,8 +275,13 @@ public class AdDetails extends AppCompatActivity {
                 adAdvertiserID = documentSnapshot.getString("userID");
 
                 Intent data1 = getIntent();
-                String adRating = data1.getStringExtra("adRating");
-                adRatingTV.setText(adRating);
+                String rating = data1.getStringExtra("adRating");
+
+                if (rating.equals("0,00")){
+                    adRatingTV.setText("N/A");
+                }else {
+                    adRatingTV.setText(rating);
+                }
 
                 DocumentReference documentReference1 = fStore.collection("users").document(String.valueOf(adAdvertiserID));
                 documentReference1.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -319,7 +324,7 @@ public class AdDetails extends AppCompatActivity {
                                     documentRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void aVoid) {
-                                            Toast.makeText(AdDetails.this, "Oglas je obrisan", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(AdDetails.this, "Oglas uspješno obrisan.", Toast.LENGTH_SHORT).show();
 
                                             Intent myIntent = new Intent(AdDetails.this, MyAds.class);
                                             AdDetails.this.startActivity(myIntent);

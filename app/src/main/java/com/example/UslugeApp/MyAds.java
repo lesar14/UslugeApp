@@ -99,6 +99,7 @@ public class MyAds extends AppCompatActivity {
                         holder.ad_desc.setText(model.getAdDesc());
                         Picasso.get().load(model.getAdImageUrl()).into(holder.ad_image);
                         Double rating = model.getAdRating();
+                        holder.ad_rating_txt = String.format("%.2f", rating);
                         if (rating.equals(0.0)){
                             holder.ad_rating.setText("N/A");
                         }else {
@@ -204,6 +205,7 @@ public class MyAds extends AppCompatActivity {
         private String ad_category;
         private String ad_image_Url;
         private TextView ad_date;
+        private String ad_rating_txt;
 
         public AdsViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -224,6 +226,7 @@ public class MyAds extends AppCompatActivity {
                     i.putExtra("adCategory", ad_category);
                     i.putExtra("myAds", true);
                     i.putExtra("adImageUrl", ad_image_Url);
+                    i.putExtra("adRating", ad_rating_txt);
                     startActivity(i);
                 }
             });

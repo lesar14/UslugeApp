@@ -255,13 +255,14 @@
 
                 <TextView
                     android:id="@+id/adRating"
-                    android:layout_width="match_parent"
+                    android:layout_width="60dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
                     android:layout_marginEnd="15dp"
                     android:layout_marginBottom="10dp"
                     android:text="@string/ocjena_oglasa"
                     android:textColor="@color/primary"
+                    android:drawableRight="@drawable/ic_rating_star_3"
                     android:textSize="18sp"
                     android:fontFamily="@font/bree_serif"
                     android:visibility="gone" />
