@@ -59,7 +59,7 @@ public class MyAds extends AppCompatActivity {
         ArrayAdapter adCategorySpinnerAdapter = ArrayAdapter.createFromResource(
                 this,
                 R.array.spinnerAdCategories,
-                R.layout.spinner_text_2
+                R.layout.spinner_text_3
         );
         adCategorySpinnerAdapter.setDropDownViewResource(R.layout.spinner_dropdown_layout);
         adCategory.setAdapter(adCategorySpinnerAdapter);

@@ -469,7 +469,7 @@ public class AdDetails extends AppCompatActivity {
                 adRatingUser.setInputType(InputType.TYPE_CLASS_NUMBER);
 
                 MaterialAlertDialogBuilder rating = new MaterialAlertDialogBuilder(AdDetails.this);
-                rating.setTitle("Ocjenite oglas");
+                rating.setTitle("Ocjenite oglas: ");
                 rating.setView(adRatingUser);
                 // builder.setIcon(R.drawable.ic_rating_star_3);
                 rating.setBackground(getResources().getDrawable(R.drawable.alert_dialog_bg));

@@ -67,7 +67,7 @@ public class ProfileEdit extends AppCompatActivity {
         ArrayAdapter adCountySpinnerAdapter = ArrayAdapter.createFromResource(
                 this,
                 R.array.spinnerCounties,
-                R.layout.spinner_text_2
+                R.layout.spinner_text_3
         );
         adCountySpinnerAdapter.setDropDownViewResource(R.layout.spinner_dropdown_layout);
         profileCounty.setAdapter(adCountySpinnerAdapter);

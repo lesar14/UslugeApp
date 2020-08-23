@@ -21,9 +21,11 @@
 
         <Spinner
             android:id="@+id/countySpinner"
-            android:layout_width="250dp"
-            android:layout_height="45dp"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
             android:background="@drawable/spinner_style_3"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.496"
@@ -33,9 +35,11 @@
 
         <Spinner
             android:id="@+id/adCategorySpinner"
-            android:layout_width="250dp"
-            android:layout_height="45dp"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
             android:background="@drawable/spinner_style_3"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.496"
