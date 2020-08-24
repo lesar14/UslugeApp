@@ -110,6 +110,9 @@ public class MyAds extends AppCompatActivity {
                         holder.ad_category = model.getAdCategory();
                         holder.ad_image_Url = model.getAdImageUrl();
                         holder.ad_date.setText(model.getAdDate());
+                        holder.ad_name_txt = model.getAdName();
+                        holder.ad_desc_text = model.getAdDesc();
+                        holder.ad_image_Url = model.getAdImageUrl();
                     }
 
                     @Override
@@ -123,14 +126,15 @@ public class MyAds extends AppCompatActivity {
                                 //   Toast.makeText(MyAds.this, "Ucitavanje nove stranice", Toast.LENGTH_SHORT).show();
                                 break;
                             case FINISHED:
-                                if (getItemCount()==0) {
-                                    Toast.makeText(MyAds.this, "Trenutno nemate objavljenih oglasa u ovoj kategoriji", Toast.LENGTH_SHORT).show();
-                                }
+
                                 break;
                             case ERROR:
                                 //   Toast.makeText(MyAds.this, "Greska", Toast.LENGTH_SHORT).show();
                                 break;
                             case LOADED:
+                                if (getItemCount()==0) {
+                                    Toast.makeText(MyAds.this, "Trenutno nemate objavljenih oglasa u ovoj kategoriji", Toast.LENGTH_SHORT).show();
+                                }
                                 //   Toast.makeText(MyAds.this, "Ukupan broj ucitanih itema: "+ getItemCount(), Toast.LENGTH_SHORT).show();
                                 break;
                         }
@@ -206,6 +210,9 @@ public class MyAds extends AppCompatActivity {
         private String ad_image_Url;
         private TextView ad_date;
         private String ad_rating_txt;
+        private String ad_name_txt;
+        private String ad_desc_text;
+
 
         public AdsViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -227,6 +234,9 @@ public class MyAds extends AppCompatActivity {
                     i.putExtra("myAds", true);
                     i.putExtra("adImageUrl", ad_image_Url);
                     i.putExtra("adRating", ad_rating_txt);
+                    i.putExtra("adName", ad_name_txt);
+                    i.putExtra("adDesc", ad_desc_text);
+                    i.putExtra("adImage", ad_image_Url);
                     startActivity(i);
                 }
             });

@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.service.chooser.ChooserTarget;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -160,10 +161,15 @@ public class SearchAds extends AppCompatActivity {
                                 holder.ad_rating.setText(String.format("%.2f", rating));
                             }
                             Picasso.get().load(model.getAdImageUrl()).into(holder.ad_image);
+
                             holder.ad_ID = model.getAdID();
                             holder.ad_county = model.getAdCounty();
                             holder.ad_category = model.getAdCategory();
                             holder.ad_date.setText(model.getAdDate());
+                            holder.user_id = model.getUserID();
+                            holder.imageUrl = model.getAdImageUrl();
+                            holder.ad_name_txt = model.getAdName();
+                            holder.ad_desc_text = model.getAdDesc();
                         }
                     }
                     @Override
@@ -208,7 +214,10 @@ public class SearchAds extends AppCompatActivity {
         private String ad_category;
         private String ad_rating_txt;
         private TextView ad_date;
-
+        private String user_id;
+        private String imageUrl;
+        private String ad_name_txt;
+        private String ad_desc_text;
 
         public AdsViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -229,7 +238,13 @@ public class SearchAds extends AppCompatActivity {
                     i.putExtra("adCounty", ad_county);
                     i.putExtra("adCategory", ad_category);
                     i.putExtra("adRating", ad_rating_txt);
+                    i.putExtra("userID", user_id);
+                    i.putExtra("adName", ad_name_txt);
+                    i.putExtra("adDesc", ad_desc_text);
+                    i.putExtra("adImage", imageUrl);
+
                     startActivity(i);
+
                 }
             });
         }
