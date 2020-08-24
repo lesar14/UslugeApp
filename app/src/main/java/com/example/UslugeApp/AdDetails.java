@@ -143,6 +143,8 @@ public class AdDetails extends AppCompatActivity {
             PhoneTV.setVisibility(View.VISIBLE);
             adDateTV.setVisibility(View.VISIBLE);
             adDateTxt.setVisibility(View.VISIBLE);
+            adRatingTV.setVisibility(View.VISIBLE);
+            adRatingTxt.setVisibility(View.VISIBLE);
 
 
             Intent data1 = getIntent();
@@ -163,7 +165,7 @@ public class AdDetails extends AppCompatActivity {
                 public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
                     adRating = documentSnapshot.getDouble("adRating");
                     numOfRatings = documentSnapshot.getDouble("numOfRatings");
-
+                    adRatingTV.setText(String.valueOf(adRating));
                 }
             });
 

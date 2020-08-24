@@ -51,6 +51,10 @@ public class Login extends AppCompatActivity {
         goToRegister = findViewById(R.id.goToRegisterBtn);
         resetPassword = findViewById(R.id.resetPassword_txt);
 
+        if (fAuth.getCurrentUser() != null){
+            startActivity(new Intent(getApplicationContext(), SearchAds.class));
+            finish();
+        }
 
         mLoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
