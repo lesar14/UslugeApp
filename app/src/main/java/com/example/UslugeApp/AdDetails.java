@@ -53,7 +53,7 @@ public class AdDetails extends AppCompatActivity {
     String adID, adCategory, adAdvertiserID, adAdvertiserName, adImageAdvertised, adNameAdvertised, adDescAdvertised, currentUser, adCityTxt, adCategoryOrdered, adClientName, adClientPhone, adClientCity, advertiserPhone;
     Double adRating, numOfRatings;
     Boolean myAds, orderedAds, adsToDo;
-    Boolean  adExists = false;
+    Boolean adExists = false;
     FirebaseFirestore fStore;
     TextView adName, adDesc, adAdvertiser, adCity, adClientNameTV, PhoneTV, CityTxt, AdvertiserTxt, NameTxt, PhoneTxt, adDateTV, adDateTxt, adRatingTxt, adRatingTV;
     ImageView adImage;
@@ -112,7 +112,6 @@ public class AdDetails extends AppCompatActivity {
         adRatingBtn = findViewById(R.id.adRatingBtn);
         adClientNameTV = findViewById(R.id.adClientName);
         PhoneTV = findViewById(R.id.adClientPhone);
-
         CityTxt = findViewById(R.id.CityText);
         AdvertiserTxt = findViewById(R.id.AdvertiserTxt);
         NameTxt = findViewById(R.id.ClientNameTxt);
@@ -135,8 +134,7 @@ public class AdDetails extends AppCompatActivity {
         adsToDo = data.getBooleanExtra("adsToDo", false);
 
 
-
-        if (orderedAds){
+        if (orderedAds) {
             adAdvertiser.setVisibility(View.VISIBLE);
             adCity.setVisibility(View.VISIBLE);
             AdvertiserTxt.setVisibility(View.VISIBLE);
@@ -145,7 +143,6 @@ public class AdDetails extends AppCompatActivity {
             PhoneTV.setVisibility(View.VISIBLE);
             adDateTV.setVisibility(View.VISIBLE);
             adDateTxt.setVisibility(View.VISIBLE);
-
 
 
             Intent data1 = getIntent();
@@ -170,18 +167,16 @@ public class AdDetails extends AppCompatActivity {
                 }
             });
 
-            if (adRatingBoolean){
-            adRatingBtn.setVisibility(View.VISIBLE);
-            }else {
+            if (adRatingBoolean) {
+                adRatingBtn.setVisibility(View.VISIBLE);
+            } else {
                 Toast.makeText(this, "Nakon što usluga bude odrađena, imat ćete mogućnost da ju ocjenite.", Toast.LENGTH_LONG).show();
             }
 
 
             String adImageTxt = data1.getStringExtra("adImage");
             Picasso.get().load(adImageTxt).into(adImage);
-        }
-
-        else if (adsToDo){
+        } else if (adsToDo) {
             adDoneBtn.setVisibility(View.VISIBLE);
             adClientNameTV.setVisibility(View.VISIBLE);
             PhoneTV.setVisibility(View.VISIBLE);
@@ -249,207 +244,205 @@ public class AdDetails extends AppCompatActivity {
             });
 
 
-        }
-
-        else {
-                // SearchAds & MyAds
-            final DocumentReference documentReference = fStore.collection("adCategory").document(adCategory).collection("ads").document(adID);
+        } else {
+            // SearchAds & MyAds
+            final DocumentReference documentReference = fStore.collection("adCategory").
+                    document(adCategory).collection("ads").document(adID);
             documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
-            @Override
-            public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
+                @Override
+                public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
 
-                orderAd.setVisibility(View.VISIBLE);
-                adAdvertiser.setVisibility(View.VISIBLE);
-                adCity.setVisibility(View.VISIBLE);
-                AdvertiserTxt.setVisibility(View.VISIBLE);
-                CityTxt.setVisibility(View.VISIBLE);
-                PhoneTxt.setVisibility(View.VISIBLE);
-                PhoneTV.setVisibility(View.VISIBLE);
-                adRatingTxt.setVisibility(View.VISIBLE);
-                adRatingTV.setVisibility(View.VISIBLE);
+                    orderAd.setVisibility(View.VISIBLE);
+                    adAdvertiser.setVisibility(View.VISIBLE);
+                    adCity.setVisibility(View.VISIBLE);
+                    AdvertiserTxt.setVisibility(View.VISIBLE);
+                    CityTxt.setVisibility(View.VISIBLE);
+                    PhoneTxt.setVisibility(View.VISIBLE);
+                    PhoneTV.setVisibility(View.VISIBLE);
+                    adRatingTxt.setVisibility(View.VISIBLE);
+                    adRatingTV.setVisibility(View.VISIBLE);
 
-                adNameAdvertised = documentSnapshot.getString("adName");
-                adName.setText(adNameAdvertised);
+                    adNameAdvertised = documentSnapshot.getString("adName");
+                    adName.setText(adNameAdvertised);
 
-                adDescAdvertised = documentSnapshot.getString("adDesc");
-                adDesc.setText(adDescAdvertised);
+                    adDescAdvertised = documentSnapshot.getString("adDesc");
+                    adDesc.setText(adDescAdvertised);
 
-                adImageAdvertised = documentSnapshot.getString("adImageUrl");
-                Picasso.get().load(adImageAdvertised).into(adImage);
+                    adImageAdvertised = documentSnapshot.getString("adImageUrl");
+                    Picasso.get().load(adImageAdvertised).into(adImage);
 
-                adAdvertiserID = documentSnapshot.getString("userID");
+                    adAdvertiserID = documentSnapshot.getString("userID");
 
-                Intent data1 = getIntent();
-                String rating = data1.getStringExtra("adRating");
+                    Intent data1 = getIntent();
+                    String rating = data1.getStringExtra("adRating");
 
-                if (rating.equals("0,00")){
-                    adRatingTV.setText("N/A");
-                }else {
-                    adRatingTV.setText(rating);
-                }
-
-                DocumentReference documentReference1 = fStore.collection("users").document(String.valueOf(adAdvertiserID));
-                documentReference1.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        if(task.isSuccessful()){
-                            DocumentSnapshot snapshot = task.getResult();
-                            adAdvertiserName = snapshot.getString("fname");
-                            adAdvertiser.setText(adAdvertiserName);
-
-                            adCityTxt = snapshot.getString("city");
-                            adCity.setText(adCityTxt);
-
-                            advertiserPhone = snapshot.getString("phone");
-                            PhoneTV.setText(advertiserPhone);
-                        }
+                    if (rating.equals("0,00")) {
+                        adRatingTV.setText("N/A");
+                    } else {
+                        adRatingTV.setText(rating);
                     }
 
-                });
-
-                if (myAds){
-
-                    Intent data = getIntent();
-                    final String adImageUrl = data.getStringExtra("adImageUrl");
-
-                    orderAd.setVisibility(View.GONE);
-                    deleteAd.setVisibility(View.VISIBLE);
-                    deleteAd.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-
-                            MaterialAlertDialogBuilder delete = new MaterialAlertDialogBuilder(AdDetails.this);
-                            delete.setTitle("Brisanje oglasa?");
-                            delete.setBackground(getResources().getDrawable(R.drawable.alert_dialog_bg));
-
-                            delete.setPositiveButton("Da", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    DocumentReference documentRef = fStore.collection("adCategory").document(adCategory).collection("ads").document(adID);
-                                    documentRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-                                        @Override
-                                        public void onSuccess(Void aVoid) {
-                                            Toast.makeText(AdDetails.this, "Oglas uspješno obrisan.", Toast.LENGTH_SHORT).show();
-
-                                            Intent myIntent = new Intent(AdDetails.this, MyAds.class);
-                                            AdDetails.this.startActivity(myIntent);
-                                        }
-                                    }).addOnFailureListener(new OnFailureListener() {
-                                        @Override
-                                        public void onFailure(@NonNull Exception e) {
-                                            Toast.makeText(AdDetails.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                                        }
-                                    });
-                                    StorageReference storageRef = null;
-                                    if (adImageUrl != null) {
-                                        storageRef = FirebaseStorage.getInstance().getReferenceFromUrl(adImageUrl);
-                                    }
-                                    storageRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-                                        @Override
-                                        public void onSuccess(Void aVoid) {
-                                            Log.e("firebasestorage", "onSuccess: deleted file");
-                                        }
-                                    }).addOnFailureListener(new OnFailureListener() {
-                                        @Override
-                                        public void onFailure(@NonNull Exception exception) {
-                                            Log.e("firebasestorage", "onFailure: did not delete file");
-                                        }
-                                    });
-                                }
-
-                            });
-
-                            delete.setNegativeButton("Ne", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-
-                                }
-                            });
-
-                            delete.show();
-                        }
-                    });
-                }
-
-                else {
-
-                orderAd.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    DocumentReference documentReference1 = fStore.collection("users").document(currentUser);
+                    DocumentReference documentReference1 = fStore.collection("users").document(String.valueOf(adAdvertiserID));
                     documentReference1.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                            if(task.isSuccessful()){
+                            if (task.isSuccessful()) {
                                 DocumentSnapshot snapshot = task.getResult();
-                                adClientName = snapshot.getString("fname");
-                                adClientPhone = snapshot.getString("phone");
-                                adClientCity = snapshot.getString("city");
+                                adAdvertiserName = snapshot.getString("fname");
+                                adAdvertiser.setText(adAdvertiserName);
 
-                                DocumentReference documentReference = fStore.collection("users").document(adAdvertiserID).collection("adsToDo").document(adID+currentUser);
-                                Map<String, Object> ad = new HashMap<>();
+                                adCityTxt = snapshot.getString("city");
+                                adCity.setText(adCityTxt);
 
-                                ad.put("adID", adID);
-                                ad.put("adName", adNameAdvertised);
-                                ad.put("adDesc", adDescAdvertised);
-                                ad.put("adImageUrl", adImageAdvertised);
-                                ad.put("adClient", currentUser);
-                                ad.put("adCategory", adCategory);
-                                ad.put("adToDoID", adID+currentUser);
-                                ad.put("clientName", adClientName);
-                                ad.put("clientPhone", adClientPhone);
-                                ad.put("clientCity", adClientCity);
-                                ad.put("adDate", adDate);
+                                advertiserPhone = snapshot.getString("phone");
+                                PhoneTV.setText(advertiserPhone);
+                            }
+                        }
 
-                                documentReference.set(ad).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    });
+
+                    if (myAds) {
+
+                        Intent data = getIntent();
+                        final String adImageUrl = data.getStringExtra("adImageUrl");
+
+                        orderAd.setVisibility(View.GONE);
+                        deleteAd.setVisibility(View.VISIBLE);
+                        deleteAd.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+                                MaterialAlertDialogBuilder delete = new MaterialAlertDialogBuilder(AdDetails.this);
+                                delete.setTitle("Brisanje oglasa?");
+                                delete.setBackground(getResources().getDrawable(R.drawable.alert_dialog_bg));
+
+                                delete.setPositiveButton("Da", new DialogInterface.OnClickListener() {
                                     @Override
-                                    public void onSuccess(Void aVoid) {
-                                        Log.d(TAG, "Success");
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        DocumentReference documentRef = fStore.collection("adCategory").document(adCategory).collection("ads").document(adID);
+                                        documentRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                Toast.makeText(AdDetails.this, "Oglas uspješno obrisan.", Toast.LENGTH_SHORT).show();
+
+                                                Intent myIntent = new Intent(AdDetails.this, MyAds.class);
+                                                AdDetails.this.startActivity(myIntent);
+                                            }
+                                        }).addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Toast.makeText(AdDetails.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
+                                        StorageReference storageRef = null;
+                                        if (adImageUrl != null) {
+                                            storageRef = FirebaseStorage.getInstance().getReferenceFromUrl(adImageUrl);
+                                        }
+                                        storageRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                Log.e("firebasestorage", "onSuccess: deleted file");
+                                            }
+                                        }).addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception exception) {
+                                                Log.e("firebasestorage", "onFailure: did not delete file");
+                                            }
+                                        });
                                     }
-                                }).addOnFailureListener(new OnFailureListener() {
+
+                                });
+
+                                delete.setNegativeButton("Ne", new DialogInterface.OnClickListener() {
                                     @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Log.d(TAG, "onFailure: " + e.toString());
+                                    public void onClick(DialogInterface dialog, int which) {
+
                                     }
                                 });
 
-                                DocumentReference documentReference2 = fStore.collection("users").document(currentUser).collection("orderedAds").document(adID);
-                                Map<String, Object> ad1 = new HashMap<>();
+                                delete.show();
+                            }
+                        });
+                    } else {
 
-                                ad1.put("adID", adID);
-                                ad1.put("adName", adNameAdvertised);
-                                ad1.put("adDesc", adDescAdvertised);
-                                ad1.put("adImageUrl", adImageAdvertised);
-                                ad1.put("adCity", adCityTxt);
-                                ad1.put("adAdvertiserName", adAdvertiserName);
-                                ad1.put("adAdvertiserID", adAdvertiserID);
-                                ad1.put("adCategory", adCategory);
-                                ad1.put("advertiserPhone", advertiserPhone);
-                                ad1.put("adDate", adDate);
-                                ad1.put("adRatingBoolean", false);
+                        orderAd.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                DocumentReference documentReference1 = fStore.collection("users").document(currentUser);
+                                documentReference1.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                        if (task.isSuccessful()) {
+                                            DocumentSnapshot snapshot = task.getResult();
+                                            adClientName = snapshot.getString("fname");
+                                            adClientPhone = snapshot.getString("phone");
+                                            adClientCity = snapshot.getString("city");
 
-                                documentReference2.set(ad1).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid) {
-                                        Log.d(TAG, "Success");
-                                        Toast.makeText(AdDetails.this, "Uspješno naručeno.", Toast.LENGTH_SHORT).show();
-                                    }
-                                }).addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Log.d(TAG, "onFailure: " + e.toString());
+                                            DocumentReference documentReference = fStore.collection("users").document(adAdvertiserID).
+                                                    collection("adsToDo").document(adID + currentUser);
+
+                                            Map<String, Object> ad = new HashMap<>();
+                                            ad.put("adID", adID);
+                                            ad.put("adName", adNameAdvertised);
+                                            ad.put("adDesc", adDescAdvertised);
+                                            ad.put("adImageUrl", adImageAdvertised);
+                                            ad.put("adClient", currentUser);
+                                            ad.put("adCategory", adCategory);
+                                            ad.put("adToDoID", adID + currentUser);
+                                            ad.put("clientName", adClientName);
+                                            ad.put("clientPhone", adClientPhone);
+                                            ad.put("clientCity", adClientCity);
+                                            ad.put("adDate", adDate);
+
+                                            documentReference.set(ad).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+                                                    Log.d(TAG, "Success");
+                                                }
+                                            }).addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    Log.d(TAG, "onFailure: " + e.toString());
+                                                }
+                                            });
+
+                                            DocumentReference documentReference2 = fStore.collection("users").document(currentUser).collection("orderedAds").document(adID);
+                                            Map<String, Object> ad1 = new HashMap<>();
+
+                                            ad1.put("adID", adID);
+                                            ad1.put("adName", adNameAdvertised);
+                                            ad1.put("adDesc", adDescAdvertised);
+                                            ad1.put("adImageUrl", adImageAdvertised);
+                                            ad1.put("adCity", adCityTxt);
+                                            ad1.put("adAdvertiserName", adAdvertiserName);
+                                            ad1.put("adAdvertiserID", adAdvertiserID);
+                                            ad1.put("adCategory", adCategory);
+                                            ad1.put("advertiserPhone", advertiserPhone);
+                                            ad1.put("adDate", adDate);
+                                            ad1.put("adRatingBoolean", false);
+
+                                            documentReference2.set(ad1).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+                                                    Log.d(TAG, "Success");
+                                                    Toast.makeText(AdDetails.this, "Uspješno naručeno.", Toast.LENGTH_SHORT).show();
+                                                }
+                                            }).addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    Log.d(TAG, "onFailure: " + e.toString());
+                                                }
+                                            });
+                                        }
+                                        Intent myIntent = new Intent(AdDetails.this, AdsOrdered.class);
+                                        AdDetails.this.startActivity(myIntent);
                                     }
                                 });
                             }
-                            Intent myIntent = new Intent(AdDetails.this, AdsOrdered.class);
-                            AdDetails.this.startActivity(myIntent);
-                        }
-                    });
+                        });
+                    }
                 }
             });
-            }
-            }
-        });
         }
 
         adRatingBtn.setOnClickListener(new View.OnClickListener() {
@@ -471,7 +464,6 @@ public class AdDetails extends AppCompatActivity {
                 MaterialAlertDialogBuilder rating = new MaterialAlertDialogBuilder(AdDetails.this);
                 rating.setTitle("Ocjenite oglas: ");
                 rating.setView(adRatingUser);
-                // builder.setIcon(R.drawable.ic_rating_star_3);
                 rating.setBackground(getResources().getDrawable(R.drawable.alert_dialog_bg));
 
                 rating.setPositiveButton("Da", new DialogInterface.OnClickListener() {
@@ -479,25 +471,23 @@ public class AdDetails extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         String ratingString = adRatingUser.getText().toString();
 
-                        if (ratingString.length() < 1 ) {
+                        if (ratingString.length() < 1) {
                             Toast.makeText(AdDetails.this, "Unesite ocjenu od 1 do 5", Toast.LENGTH_SHORT).show();
-                        }else{
+                        } else {
                             final Double rating = Double.parseDouble(ratingString);
-                            if (rating < 1  || rating > 5) {
+                            if (rating < 1 || rating > 5) {
                                 Toast.makeText(AdDetails.this, "Unesite ocjenu od 1 do 5", Toast.LENGTH_SHORT).show();
-                            }
-
-                            else {
+                            } else {
 
                                 if (adExists) {
                                     DocumentReference documentReference1 = fStore.collection("adCategory").document(adCategoryOrdered).collection("ads").document(adID);
                                     Map<String, Object> ad = new HashMap<>();
 
                                     Double sum = adRating * numOfRatings + rating;
-                                    Double newRating = sum / (numOfRatings+1);
+                                    Double newRating = sum / (numOfRatings + 1);
 
                                     ad.put("adRating", newRating);
-                                    ad.put("numOfRatings", numOfRatings+1);
+                                    ad.put("numOfRatings", numOfRatings + 1);
 
                                     documentReference1.update(ad).addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
@@ -529,7 +519,6 @@ public class AdDetails extends AppCompatActivity {
                                         Toast.makeText(AdDetails.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                                     }
                                 });
-
                             }
                         }
                     }
@@ -542,9 +531,7 @@ public class AdDetails extends AppCompatActivity {
 
                     }
                 });
-
                 rating.show();
-
             }
         });
     }

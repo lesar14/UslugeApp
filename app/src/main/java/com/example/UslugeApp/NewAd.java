@@ -174,20 +174,20 @@ public class NewAd extends AppCompatActivity {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Log.d(TAG, "onSuccess");
-                        Toast.makeText(NewAd.this, "Uspješno", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(NewAd.this, "Oglas uspješno dodan.", Toast.LENGTH_SHORT).show();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Log.d(TAG, "onFailure: " + e.toString());
-                        Toast.makeText(NewAd.this, "Neuspješno", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(NewAd.this, "Neuspješno" + e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
 
                 startActivity(new Intent(getApplicationContext(),MyAds.class));
 
             } else {
-                    Toast.makeText(NewAd.this, "Slika je obavezna", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(NewAd.this, "Slika je obavezna.", Toast.LENGTH_SHORT).show();
                 }
         }}
         );

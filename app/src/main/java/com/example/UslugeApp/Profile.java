@@ -9,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
@@ -152,7 +153,7 @@ public class Profile extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 final EditText newPass = new EditText(v.getContext());
-
+                newPass.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
                 MaterialAlertDialogBuilder resetPassword = new MaterialAlertDialogBuilder(Profile.this);
                 resetPassword.setTitle("Resetiranje lozinke?");
                 resetPassword.setMessage("Unesite novu lozinku.");

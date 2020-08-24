@@ -77,8 +77,6 @@ public class Register extends AppCompatActivity {
             finish();
         }
 
-
-
         mRegisterBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -90,35 +88,40 @@ public class Register extends AppCompatActivity {
                 final String county = String.valueOf(mCounty.getSelectedItemId());
                 final String city = mCity.getText().toString();
 
+                if (TextUtils.isEmpty(fullName)){
+                    mFUllName.setError("Ime i prezime je obavezno.");
+                    return;
+                }
                 if (TextUtils.isEmpty(email)){
-                    mEmail.setError("E-mail je obavezan");
+                    mEmail.setError("E-mail je obavezan.");
                     return;
                 }
-
                 if (TextUtils.isEmpty(password)){
-                    mPassword.setError("Lozinka je obavezna");
+                    mPassword.setError("Lozinka je obavezna.");
                     return;
                 }
-
                 if (password.length() < 6) {
-                    mPassword.setError("Lozinka mora imati minimalno 6 znakova");
+                    mPassword.setError("Lozinka mora imati minimalno 6 znakova.");
                     return;
                 }
-
                 if (!password.equals(passwordRepeat)){
-                    mPasswordRepeat.setError("Lozinke se ne podudaraju");
+                    mPasswordRepeat.setError("Lozinke se ne podudaraju.");
                     return;
                 }
-
+                if (TextUtils.isEmpty(phone)){
+                    mPhone.setError("Kontakt broj je obavezan.");
+                    return;
+                }
+                if (TextUtils.isEmpty(city)){
+                    mCity.setError("Grad je obavezan.");
+                    return;
+                }
                 progressBar.setVisibility(View.VISIBLE);
 
-                // register user
                 fAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
-                            Toast.makeText(Register.this, "Korisnik kreiran.", Toast.LENGTH_SHORT).show();
-
                             userID = fAuth.getCurrentUser().getUid();
                             DocumentReference documentReference = fStore.collection("users").document(userID);
                             Map <String, Object> user = new HashMap<>();
@@ -131,7 +134,6 @@ public class Register extends AppCompatActivity {
                                 @Override
                                 public void onSuccess(Void aVoid) {
                                     Log.d(TAG, "onSuccess: user Profile is created for" + userID);
-
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
                                 @Override
@@ -139,15 +141,19 @@ public class Register extends AppCompatActivity {
                                     Log.d(TAG, "onFailure: " + e.toString());
                                 }
                             });
+                            Toast.makeText(Register.this, "Uspješna registracija.", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(getApplicationContext(), SearchAds.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
                         }else {
-                            Toast.makeText(Register.this, "Greška "+ task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Register.this, "E-mail se već koristi.", Toast.LENGTH_LONG).show();
                             progressBar.setVisibility(View.GONE);
                         }
                     }
                 });
             }
         });
+
+
+
 
         goToLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -156,4 +162,5 @@ public class Register extends AppCompatActivity {
             }
         });
     }
+
 }

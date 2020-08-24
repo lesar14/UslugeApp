@@ -60,23 +60,22 @@ public class Login extends AppCompatActivity {
                 String password = mPassword.getText().toString().trim();
 
                 if (TextUtils.isEmpty(email)) {
-                    mEmail.setError("E-mail je obavezan");
+                    mEmail.setError("E-mail je obavezan.");
                     return;
                 }
 
                 if (TextUtils.isEmpty(password)) {
-                    mPassword.setError("Lozinka je obavezna");
+                    mPassword.setError("Lozinka je obavezna.");
                     return;
                 }
 
                 if (password.length() < 6) {
-                    mPassword.setError("Lozinka mora imati minimalno 6 znakova");
+                    mPassword.setError("Lozinka ima minimalno 6 znakova.");
                     return;
                 }
 
                 progressBar.setVisibility(View.VISIBLE);
 
-                // authenticate user
                 fAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -88,7 +87,6 @@ public class Login extends AppCompatActivity {
                             Toast.makeText(Login.this, "Pogrešan E-mail i/ili lozinka.", Toast.LENGTH_SHORT).show();
                             progressBar.setVisibility(View.GONE);
                         }
-
                     }
                 });
             }
@@ -99,7 +97,6 @@ public class Login extends AppCompatActivity {
             public void onClick(View v) {
 
                 final EditText resetMail = new EditText(v.getContext());
-                resetMail.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
                 MaterialAlertDialogBuilder resetPassword = new MaterialAlertDialogBuilder(Login.this);
                 resetPassword.setTitle("Resetiranje lozinke?");
                 resetPassword.setMessage("Unesite svoju Email adresu.");

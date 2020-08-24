@@ -2,8 +2,6 @@ package com.example.UslugeApp;
 
 public class AdModel {
 
-
-
     private String adDesc;
     private String adName;
     private String adImageUrl;
@@ -22,12 +20,13 @@ public class AdModel {
     private String clientCity;
     private String adDate;
     private String advertiserPhone;
+    private String asda;
 
     private AdModel(){}
 
 
 
-    private AdModel(String adDesc, String adName, String adImage, String adID, String adCounty, String adCategory, String adCity, String adAdvertiserName, String adAdvertiserID, Boolean adRatingBoolean, String adClient, String adToDoID, String clientName, String clientPhone, String adDate, String advertiserPhone, String clientCity){
+    private AdModel(String adDesc, String adName, String adImage, String adID, String adCounty, String adCategory, String adCity, String adAdvertiserName, String adAdvertiserID, Boolean adRatingBoolean, String adClient, String adToDoID, String clientName, String clientPhone, String adDate, String advertiserPhone, String clientCity, String asda){
         this.adDesc = adDesc;
         this.adName = adName;
         this.adImageUrl = adImage;
@@ -45,6 +44,7 @@ public class AdModel {
         this.clientCity = clientCity;
         this.adDate = adDate;
         this.advertiserPhone = advertiserPhone;
+        this.asda = asda;
     }
 
     public String getAdName() {

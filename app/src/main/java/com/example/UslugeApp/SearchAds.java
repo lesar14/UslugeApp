@@ -119,9 +119,13 @@ public class SearchAds extends AppCompatActivity {
         searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 String categoryID = String.valueOf(adCategorySearch.getSelectedItemId());
                 String county = String.valueOf(countySearch.getSelectedItemId());
-                Query query = firebaseFirestore.collection("adCategory").document(categoryID).collection("ads").whereEqualTo("adCounty", county);
+
+                Query query = firebaseFirestore.collection("adCategory").document(categoryID).
+                        collection("ads").whereEqualTo("adCounty", county);
+
                 PagedList.Config config = new PagedList.Config.Builder()
                         .setInitialLoadSizeHint(10)
                         .setPageSize(3)
@@ -162,7 +166,6 @@ public class SearchAds extends AppCompatActivity {
                             holder.ad_date.setText(model.getAdDate());
                         }
                     }
-
                     @Override
                     protected void onLoadingStateChanged(@NonNull LoadingState state) {
                         super.onLoadingStateChanged(state);
