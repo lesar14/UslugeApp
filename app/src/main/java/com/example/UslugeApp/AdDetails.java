@@ -303,6 +303,16 @@ public class AdDetails extends AppCompatActivity {
 
                     if (myAds) {
 
+                        orderAd.setVisibility(View.GONE);
+                        adAdvertiser.setVisibility(View.GONE);
+                        adCity.setVisibility(View.GONE);
+                        AdvertiserTxt.setVisibility(View.GONE);
+                        CityTxt.setVisibility(View.GONE);
+                        PhoneTxt.setVisibility(View.GONE);
+                        PhoneTV.setVisibility(View.GONE);
+                        adRatingTxt.setVisibility(View.VISIBLE);
+                        adRatingTV.setVisibility(View.VISIBLE);
+
                         Intent data = getIntent();
                         final String adImageUrl = data.getStringExtra("adImageUrl");
 
