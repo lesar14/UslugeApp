@@ -20,7 +20,7 @@
     <string name="brisanje_oglasa">Brisanje oglasa</string>
     <string name="naruci">Naruči</string>
     <string name="posao_odraden">Posao odrađen</string>
-    <string name="ocjeni_oglas">Ocjeni oglas</string>
+    <string name="ocjeni_uslugu">Ocjeni uslugu</string>
     <string name="dodaj_oglas">Dodaj oglas</string>
     <string name="ime_i_prezime">Ime i prezime</string>
     <string name="email">Email</string>
@@ -38,7 +38,7 @@
     <string name="resetiranje_lozinke">Resetiranje lozinke</string>
     <string name="odjava">Odjava</string>
     <string name="ocjena">Ocjena</string>
-    <string name="ocjenite_oglas">Ocjenite oglas</string>
+    <string name="ocjenite_uslugu">Ocjenite uslugu</string>
     <string name="datum_dodavanja">Datum dodavanja</string>
     <string name="ponovi_lozinku">Ponovi lozinku</string>
     <string name="registracija">Registracija</string>
