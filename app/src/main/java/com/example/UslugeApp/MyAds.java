@@ -71,7 +71,8 @@ public class MyAds extends AppCompatActivity {
         adCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                query = firebaseFirestore.collection("adCategory").document(String.valueOf(position)).collection("ads").whereEqualTo( "userID", userID);
+                query = firebaseFirestore.collection("adCategory").document(String.valueOf(position)).
+                        collection("ads").whereEqualTo( "userID", userID);
 
 
                 PagedList.Config config = new PagedList.Config.Builder()

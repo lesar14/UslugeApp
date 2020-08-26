@@ -66,8 +66,6 @@ public class ProfileEdit extends AppCompatActivity {
         profileCounty = findViewById(R.id.profileCounty);
 
 
-
-
         profileCounty = findViewById(R.id.profileCounty);
         ArrayAdapter adCountySpinnerAdapter = ArrayAdapter.createFromResource(
                 this,
@@ -76,7 +74,6 @@ public class ProfileEdit extends AppCompatActivity {
         );
         adCountySpinnerAdapter.setDropDownViewResource(R.layout.spinner_dropdown_layout);
         profileCounty.setAdapter(adCountySpinnerAdapter);
-
 
 
         Intent data = getIntent();

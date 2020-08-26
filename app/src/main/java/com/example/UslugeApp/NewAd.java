@@ -60,7 +60,6 @@ public class NewAd extends AppCompatActivity {
     ImageView addAdImage;
     String adImageUrl;
     ProgressBar progressBar;
-    boolean imageUpload = false;
 
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
@@ -68,7 +67,7 @@ public class NewAd extends AppCompatActivity {
     String userID;
     StorageReference storageReference;
     String adImageID = UUID.randomUUID().toString();
-
+    Uri imgUri;
 
 
 
@@ -151,7 +150,8 @@ public class NewAd extends AppCompatActivity {
                     adDescription.setError("Opis je obavezan");
                     return;
                 }
-                if (imageUpload){
+
+                uploadImageToFirebase(imgUri);
 
                 DocumentReference documentReference = fStore.collection("adCategory").document(category).collection("ads").document();
                 Map <String, Object> ad = new HashMap<>();
@@ -160,7 +160,7 @@ public class NewAd extends AppCompatActivity {
                 ad.put("adName", name);
                 ad.put("adDesc", desc);
                 ad.put("adCounty", adCounty);
-                ad.put("adImageUrl", adImageUrl);
+                ad.put("adImageUrl", imgUri.toString());
                 ad.put("adCategory", category);
                 ad.put("adID", documentReference.getId());
                 ad.put("adRating", 0);
@@ -186,9 +186,7 @@ public class NewAd extends AppCompatActivity {
 
                 startActivity(new Intent(getApplicationContext(),MyAds.class));
 
-            } else {
-                    Toast.makeText(NewAd.this, "Slika je obavezna.", Toast.LENGTH_SHORT).show();
-                }
+
         }}
         );
     }
@@ -206,7 +204,6 @@ public class NewAd extends AppCompatActivity {
                         .setAspectRatio(1,1)
                         .start(this);
             }
-
         }
 
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE){
@@ -215,9 +212,9 @@ public class NewAd extends AppCompatActivity {
             if (result != null) {
                 imageUri = result.getUri();
                 progressBar.setVisibility(View.VISIBLE);
-                uploadImageToFirebase(imageUri);
+                Picasso.get().load(imageUri).into(addAdImage);
+                imgUri = imageUri;
             }
-
         }
     }
 
@@ -229,10 +226,7 @@ public class NewAd extends AppCompatActivity {
                 fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
-                        Picasso.get().load(uri).into(addAdImage);
                         adImageUrl = uri.toString();
-                        progressBar.setVisibility(View.GONE);
-                        imageUpload = true;
                     }
                 });
             }
@@ -242,26 +236,5 @@ public class NewAd extends AppCompatActivity {
                 Toast.makeText(NewAd.this, "Neuspješan prijenos slike." + e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-    }
-    @Override
-    public void onBackPressed() {
-        if (adImageUrl != null){
-            StorageReference storageRef = FirebaseStorage.getInstance().getReferenceFromUrl(adImageUrl);
-            storageRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-                @Override
-                public void onSuccess(Void aVoid) {
-                    Log.e("firebasestorage", "onSuccess: deleted file");
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception exception) {
-                    Log.e("firebasestorage", "onFailure: did not delete file");
-                }
-            });
-            Intent myIntent = new Intent(NewAd.this, SearchAds.class);
-            NewAd.this.startActivity(myIntent);
-        }
-        Intent myIntent = new Intent(NewAd.this, SearchAds.class);
-        NewAd.this.startActivity(myIntent);
     }
 }

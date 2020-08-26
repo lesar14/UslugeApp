@@ -309,18 +309,18 @@ public class AdDetails extends AppCompatActivity {
 
                 orderAd.setVisibility(View.GONE);
                 deleteAd.setVisibility(View.VISIBLE);
+
                 deleteAd.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
                         MaterialAlertDialogBuilder delete = new MaterialAlertDialogBuilder(AdDetails.this);
                         delete.setTitle("Brisanje oglasa?");
                         delete.setBackground(getResources().getDrawable(R.drawable.alert_dialog_bg));
-
                         delete.setPositiveButton("Da", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                DocumentReference documentRef = fStore.collection("adCategory").document(adCategory).collection("ads").document(adID);
+                                DocumentReference documentRef = fStore.collection("adCategory").
+                                        document(adCategory).collection("ads").document(adID);
                                 documentRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
@@ -354,16 +354,15 @@ public class AdDetails extends AppCompatActivity {
                                 }
                             }
                         });
-
                         delete.setNegativeButton("Ne", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-
                             }
                         });
                         delete.show();
                     }
                 });
+
             } else {
 
                 Intent data3 = getIntent();
