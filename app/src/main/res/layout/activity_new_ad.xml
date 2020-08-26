@@ -111,7 +111,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/adDescription"
                 app:layout_constraintVertical_bias="0.0"
-                app:srcCompat="@drawable/ic_add_photo" />
+                app:srcCompat="@drawable/ic_ad_photo_gray" />
 
             <ProgressBar
                 android:id="@+id/progressBar"

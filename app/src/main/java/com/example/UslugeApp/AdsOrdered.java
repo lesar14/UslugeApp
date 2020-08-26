@@ -34,6 +34,7 @@ public class AdsOrdered extends AppCompatActivity {
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
     String user;
+    TextView orderedAds_noAds;
 
     private RecyclerView orderedAdsList;
     private FirebaseFirestore firebaseFirestore;
@@ -51,6 +52,7 @@ public class AdsOrdered extends AppCompatActivity {
         firebaseFirestore = FirebaseFirestore.getInstance();
         orderedAdsList = findViewById(R.id.orderedAdsList);
         user = Objects.requireNonNull(fAuth.getCurrentUser()).getUid();
+        orderedAds_noAds = findViewById(R.id.orderedAds_noAds);
 
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
@@ -142,7 +144,7 @@ public class AdsOrdered extends AppCompatActivity {
                         break;
                     case FINISHED:
                         if (getItemCount()==0) {
-                            Toast.makeText(AdsOrdered.this, "Trenutno nemate naručenih oglasa.", Toast.LENGTH_SHORT).show();
+                            orderedAds_noAds.setVisibility(View.VISIBLE);
                         }
                         break;
                     case ERROR:

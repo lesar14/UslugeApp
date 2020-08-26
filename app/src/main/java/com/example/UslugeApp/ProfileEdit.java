@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
@@ -36,6 +37,7 @@ import java.util.Map;
 import java.util.Objects;
 
 public class ProfileEdit extends AppCompatActivity {
+    public static final String TAG = "TAG";
     EditText profileFullName, profileEmail, profilePhoneNum, profileCity;
     ImageView profileImage;
     Button saveProfileBtn, goBackBtn;
@@ -45,6 +47,7 @@ public class ProfileEdit extends AppCompatActivity {
     FirebaseFirestore fStore;
     FirebaseUser user;
     StorageReference storageReference;
+    Uri imgUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +64,8 @@ public class ProfileEdit extends AppCompatActivity {
         goBackBtn = findViewById(R.id.goBackBtn);
         profileCity = findViewById(R.id.profileCity);
         profileCounty = findViewById(R.id.profileCounty);
+
+
 
 
         profileCounty = findViewById(R.id.profileCounty);
@@ -106,12 +111,12 @@ public class ProfileEdit extends AppCompatActivity {
 
         saveProfileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                if (profileFullName.getText().toString().isEmpty() || profileEmail.getText().toString().isEmpty() || profilePhoneNum.getText().toString().isEmpty()){
+            public void onClick(final View v) {
+                if (profileFullName.getText().toString().isEmpty() || profileEmail.getText().toString().isEmpty() ||
+                        profilePhoneNum.getText().toString().isEmpty()){
                     Toast.makeText(ProfileEdit.this, "Jedno ili više polja su prazna.", Toast.LENGTH_SHORT).show();
                     return;
                 }
-
                 final String email = profileEmail.getText().toString();
                 user.updateEmail(email).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -126,8 +131,11 @@ public class ProfileEdit extends AppCompatActivity {
                         documentReference.update(edited).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
+                                if (imgUri!=null){
+                                uploadImageToFirebase (imgUri);
+                                }
                                 Toast.makeText(ProfileEdit.this, "Profil ažuriran.", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(getApplicationContext(), Profile.class));
+                                startActivity(new Intent(getApplicationContext(), SearchAds.class));
                                 finish();
                             }
                         }).addOnFailureListener(new OnFailureListener() {
@@ -136,20 +144,16 @@ public class ProfileEdit extends AppCompatActivity {
                                 Toast.makeText(ProfileEdit.this, "Profil nije ažuriran. " + e.getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         });
-
-                       // Toast.makeText(EditProfile.this, "Email promijenjen.", Toast.LENGTH_SHORT).show();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        //Toast.makeText(EditProfile.this, "Email nije promijenjen. " + e.getMessage() , Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ProfileEdit.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
-
-
             }
-
         });
+
         goBackBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -162,7 +166,6 @@ public class ProfileEdit extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         if (requestCode == 1000 && resultCode == Activity.RESULT_OK ) {
             Uri imageUri = null;
             if (data != null) {
@@ -171,16 +174,14 @@ public class ProfileEdit extends AppCompatActivity {
                         .setAspectRatio(1,1)
                         .start(this);
             }
-
         }
-
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE){
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
             Uri imageUri = null;
             if (result != null) {
                 imageUri = result.getUri();
-                progressBar.setVisibility(View.VISIBLE);
-                uploadImageToFirebase(imageUri);
+                Picasso.get().load(imageUri).into(profileImage);
+                imgUri = imageUri;
             }
         }
     }
@@ -190,13 +191,7 @@ public class ProfileEdit extends AppCompatActivity {
         fileRef.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                    @Override
-                    public void onSuccess(Uri uri) {
-                        Picasso.get().load(uri).into(profileImage);
-                        progressBar.setVisibility(View.GONE);
-                    }
-                });
+                Log.d(TAG, "Success");
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override

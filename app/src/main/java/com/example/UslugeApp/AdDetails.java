@@ -210,37 +210,33 @@ public class AdDetails extends AppCompatActivity {
             adDoneBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
-                    DocumentReference documentReference = fStore.collection("users").document(adClient).collection("orderedAds").document(adID);
+                    DocumentReference documentReference = fStore.collection("users").
+                            document(adClient).collection("orderedAds").document(adID);
                     Map<String, Object> edited = new HashMap<>();
                     edited.put("adRatingBoolean", true);
-
                     documentReference.update(edited).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
-                            Toast.makeText(AdDetails.this, "Uspješno", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(getApplicationContext(), SearchAds.class));
+                            DocumentReference documentReference1 = fStore.collection("users")
+                                    .document(currentUser).collection("adsToDo").document(adToDoID);
+                            documentReference1.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(AdDetails.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                            Toast.makeText(AdDetails.this, "Uspješno.", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(getApplicationContext(), AdsToDo.class));
                             finish();
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
                             Toast.makeText(AdDetails.this, "Neuspješno.  " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    });
-
-
-                    DocumentReference documentReference1 = fStore.collection("users").document(currentUser).collection("adsToDo").document(adToDoID);
-                    documentReference1.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            Intent myIntent = new Intent(AdDetails.this, SearchAds.class);
-                            AdDetails.this.startActivity(myIntent);
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(AdDetails.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     });
                 }
@@ -271,7 +267,6 @@ public class AdDetails extends AppCompatActivity {
             PhoneTV.setVisibility(View.VISIBLE);
             adRatingTxt.setVisibility(View.VISIBLE);
             adRatingTV.setVisibility(View.VISIBLE);
-
 
             DocumentReference documentReference1 = fStore.collection("users").document(String.valueOf(adAdvertiserID));
             documentReference1.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -304,6 +299,10 @@ public class AdDetails extends AppCompatActivity {
                 PhoneTV.setVisibility(View.GONE);
                 adRatingTxt.setVisibility(View.VISIBLE);
                 adRatingTV.setVisibility(View.VISIBLE);
+                adDateTV.setVisibility(View.VISIBLE);
+                adDateTxt.setVisibility(View.VISIBLE);
+
+                adDateTV.setText(data1.getStringExtra("adDate"));
 
                 Intent data2 = getIntent();
                 final String adImageUrl = data2.getStringExtra("adImage");
@@ -340,6 +339,7 @@ public class AdDetails extends AppCompatActivity {
                                 if (adImageUrl != null) {
                                     storageRef = FirebaseStorage.getInstance().getReferenceFromUrl(adImageUrl);
                                 }
+                                if (storageRef != null){
                                 storageRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
@@ -351,8 +351,8 @@ public class AdDetails extends AppCompatActivity {
                                         Log.e("firebasestorage", "onFailure: did not delete file");
                                     }
                                 });
+                                }
                             }
-
                         });
 
                         delete.setNegativeButton("Ne", new DialogInterface.OnClickListener() {
@@ -361,7 +361,6 @@ public class AdDetails extends AppCompatActivity {
 
                             }
                         });
-
                         delete.show();
                     }
                 });
@@ -371,7 +370,6 @@ public class AdDetails extends AppCompatActivity {
                 adNameAdvertised = data3.getStringExtra("adName");
                 adDescAdvertised = data3.getStringExtra("adDesc");
                 adImageAdvertised = data3.getStringExtra("adImage");
-
 
                 orderAd.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -414,7 +412,8 @@ public class AdDetails extends AppCompatActivity {
                                         }
                                     });
 
-                                    DocumentReference documentReference2 = fStore.collection("users").document(currentUser).collection("orderedAds").document(adID);
+                                    DocumentReference documentReference2 = fStore.collection("users").document(currentUser)
+                                            .collection("orderedAds").document(adID);
                                     Map<String, Object> ad1 = new HashMap<>();
 
                                     ad1.put("adID", adID);
@@ -454,25 +453,22 @@ public class AdDetails extends AppCompatActivity {
         adRatingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                DocumentReference documentReference = fStore.collection("adCategory").document(adCategoryOrdered).collection("ads").document(adID);
+                DocumentReference documentReference = fStore.collection("adCategory").
+                        document(adCategoryOrdered).collection("ads").document(adID);
                 documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
                     @Override
                     public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
                         if (documentSnapshot != null && documentSnapshot.exists()) {
-
                             final EditText adRatingUser = new EditText(v.getContext());
                             adRatingUser.setInputType(InputType.TYPE_CLASS_NUMBER);
-
                             MaterialAlertDialogBuilder rating = new MaterialAlertDialogBuilder(AdDetails.this);
                             rating.setTitle("Ocjenite uslugu: ");
                             rating.setView(adRatingUser);
                             rating.setBackground(getResources().getDrawable(R.drawable.alert_dialog_bg));
-
                             rating.setPositiveButton("Da", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     String ratingString = adRatingUser.getText().toString();
-
                                     if (ratingString.length() < 1) {
                                         Toast.makeText(AdDetails.this, "Unesite ocjenu od 1 do 5", Toast.LENGTH_SHORT).show();
                                     } else {
@@ -480,23 +476,18 @@ public class AdDetails extends AppCompatActivity {
                                         if (rating < 1 || rating > 5) {
                                             Toast.makeText(AdDetails.this, "Unesite ocjenu od 1 do 5", Toast.LENGTH_SHORT).show();
                                         } else {
-
-
-                                            DocumentReference documentReference1 = fStore.collection("adCategory").document(adCategoryOrdered).collection("ads").document(adID);
+                                            DocumentReference documentReference1 = fStore.collection("adCategory").
+                                                    document(adCategoryOrdered).collection("ads").document(adID);
                                             Map<String, Object> ad = new HashMap<>();
-
                                             Double sum = adRating * numOfRatings + rating;
                                             Double newRating = sum / (numOfRatings + 1);
-
                                             ad.put("adRating", newRating);
                                             ad.put("numOfRatings", numOfRatings + 1);
-
                                             documentReference1.update(ad).addOnSuccessListener(new OnSuccessListener<Void>() {
                                                 @Override
                                                 public void onSuccess(Void aVoid) {
                                                     Log.d(TAG, "Success");
                                                     Toast.makeText(AdDetails.this, "Ocjena uspješno unesena.", Toast.LENGTH_SHORT).show();
-
                                                 }
                                             }).addOnFailureListener(new OnFailureListener() {
                                                 @Override
@@ -505,8 +496,8 @@ public class AdDetails extends AppCompatActivity {
                                                     Toast.makeText(AdDetails.this, "Neuspješno ocijenjivanje", Toast.LENGTH_SHORT).show();
                                                 }
                                             });
-
-                                            DocumentReference documentReference2 = fStore.collection("users").document(currentUser).collection("orderedAds").document(adID);
+                                            DocumentReference documentReference2 = fStore.collection("users").document(currentUser).
+                                                    collection("orderedAds").document(adID);
                                             documentReference2.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                                                 @Override
                                                 public void onSuccess(Void aVoid) {
@@ -524,7 +515,6 @@ public class AdDetails extends AppCompatActivity {
                                     }
                                 }
                             });
-
                             rating.setNegativeButton("Ne", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
@@ -532,10 +522,10 @@ public class AdDetails extends AppCompatActivity {
                                 }
                             });
                             rating.show();
-
-                        } else {
-
-                            DocumentReference documentReference2 = fStore.collection("users").document(currentUser).collection("orderedAds").document(adID);
+                        }
+                        else {
+                            DocumentReference documentReference2 = fStore.collection("users").
+                                    document(currentUser).collection("orderedAds").document(adID);
                             documentReference2.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
@@ -550,7 +540,6 @@ public class AdDetails extends AppCompatActivity {
                                 }
                             });
                             Toast.makeText(AdDetails.this, "Oglas je u međuvremenu obrisan.", Toast.LENGTH_SHORT).show();
-
                         }
                     }
                 });

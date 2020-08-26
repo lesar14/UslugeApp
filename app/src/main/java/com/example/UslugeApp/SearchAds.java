@@ -6,6 +6,7 @@ import androidx.paging.PagedList;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.service.chooser.ChooserTarget;
@@ -16,6 +17,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -24,7 +26,10 @@ import android.widget.Toast;
 import com.firebase.ui.firestore.paging.FirestorePagingAdapter;
 import com.firebase.ui.firestore.paging.FirestorePagingOptions;
 import com.firebase.ui.firestore.paging.LoadingState;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
@@ -184,7 +189,7 @@ public class SearchAds extends AppCompatActivity {
                                 break;
                             case FINISHED:
                                 if (getItemCount() == 0) {
-                                    Toast.makeText(SearchAds.this, "Trenutno nema oglasa koji zadovoljavaju postavljeni kriterij", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(SearchAds.this, "Trenutno nema oglasa koji zadovoljavaju postavljene kriterije.", Toast.LENGTH_SHORT).show();
                                 }
                                 break;
                             case ERROR:
@@ -235,14 +240,13 @@ public class SearchAds extends AppCompatActivity {
 
                     Intent i = new Intent(v.getContext(), AdDetails.class);
                     i.putExtra("adID", ad_ID);
+                    i.putExtra("adName", ad_name_txt);
+                    i.putExtra("adDesc", ad_desc_text);
+                    i.putExtra("adImage", imageUrl);
                     i.putExtra("adCounty", ad_county);
                     i.putExtra("adCategory", ad_category);
                     i.putExtra("adRating", ad_rating_txt);
                     i.putExtra("userID", user_id);
-                    i.putExtra("adName", ad_name_txt);
-                    i.putExtra("adDesc", ad_desc_text);
-                    i.putExtra("adImage", imageUrl);
-
                     startActivity(i);
 
                 }
@@ -251,7 +255,32 @@ public class SearchAds extends AppCompatActivity {
     }
 
     public void onBackPressed() {
-        this.moveTaskToBack(true);
+        MaterialAlertDialogBuilder onBackMinimizeApp = new MaterialAlertDialogBuilder(SearchAds.this);
+        onBackMinimizeApp.setTitle("Želite minimizirati aplikaciju?");
+        onBackMinimizeApp.setBackground(getResources().getDrawable(R.drawable.alert_dialog_bg));
+
+
+        onBackMinimizeApp.setPositiveButton("Da", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            minimizeApp();
+            }
+        });
+        onBackMinimizeApp.setNegativeButton("Ne", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // close
+            }
+        });
+        onBackMinimizeApp.show();
+    }
+
+
+    public void minimizeApp() {
+        Intent startMain = new Intent(Intent.ACTION_MAIN);
+        startMain.addCategory(Intent.CATEGORY_HOME);
+        startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(startMain);
     }
 }
 

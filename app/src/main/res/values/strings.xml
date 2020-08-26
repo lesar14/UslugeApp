@@ -47,6 +47,9 @@
     <string name="promjena_lozinke">Promjena lozinke</string>
     <string name="ocjena_usluge_txt">Ocjena: </string>
     <string name="ocjena_usluge">Ocjena usluge</string>
+    <string name="trenutno_nemate_zaprimljenih_usluga">Trenutno nemate zaprimljenih usluga.</string>
+    <string name="trenutno_nemate_narucenih_usluga">Trenutno nemate naručenih usluga.</string>
+    <string name="naruceno">Naručeno</string>
 
 
     <string-array name="spinnerCounties">

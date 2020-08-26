@@ -110,6 +110,7 @@ public class MyAds extends AppCompatActivity {
                         holder.ad_category = model.getAdCategory();
                         holder.ad_image_Url = model.getAdImageUrl();
                         holder.ad_date.setText(model.getAdDate());
+                        holder.ad_date_txt = model.getAdDate();
                         holder.ad_name_txt = model.getAdName();
                         holder.ad_desc_text = model.getAdDesc();
                         holder.ad_image_Url = model.getAdImageUrl();
@@ -209,6 +210,7 @@ public class MyAds extends AppCompatActivity {
         private String ad_category;
         private String ad_image_Url;
         private TextView ad_date;
+        private String ad_date_txt;
         private String ad_rating_txt;
         private String ad_name_txt;
         private String ad_desc_text;
@@ -237,6 +239,7 @@ public class MyAds extends AppCompatActivity {
                     i.putExtra("adName", ad_name_txt);
                     i.putExtra("adDesc", ad_desc_text);
                     i.putExtra("adImage", ad_image_Url);
+                    i.putExtra("adDate", ad_date_txt);
                     startActivity(i);
                 }
             });

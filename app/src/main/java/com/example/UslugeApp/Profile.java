@@ -60,6 +60,18 @@ public class Profile extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_profile);
 
+       /* final Intent data = getIntent();
+        Boolean orderedAds = data.getBooleanExtra("orderedAds", false);
+        String da = data.getStringExtra("da");
+
+        Toast.makeText(this, da, Toast.LENGTH_SHORT).show();
+
+        if (orderedAds) {
+            finish();
+            startActivity(getIntent());
+        }
+*/
+
         fullName = findViewById(R.id.profileFullName);
         email = findViewById(R.id.profileEmail);
         phoneNum = findViewById(R.id.profilePhoneNum);
@@ -155,7 +167,7 @@ public class Profile extends AppCompatActivity {
                 final EditText newPass = new EditText(v.getContext());
                 newPass.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
                 MaterialAlertDialogBuilder resetPassword = new MaterialAlertDialogBuilder(Profile.this);
-                resetPassword.setTitle("Resetiranje lozinke?");
+                resetPassword.setTitle("Promjena lozinke?");
                 resetPassword.setMessage("Unesite novu lozinku.");
                 resetPassword.setBackground(getResources().getDrawable(R.drawable.alert_dialog_bg));
                 resetPassword.setView(newPass);
@@ -163,14 +175,11 @@ public class Profile extends AppCompatActivity {
                 resetPassword.setPositiveButton("Da", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        // extract the mail and send reset link
                         String newPassword = newPass.getText().toString();
-
                         if (newPassword.length() < 6) {
                             Toast.makeText(Profile.this, "Lozinka mora imati minimalno 6 znakova.", Toast.LENGTH_SHORT).show();
                         }
                         else {
-
                            user.updatePassword(newPassword).addOnSuccessListener(new OnSuccessListener<Void>() {
                                @Override
                                public void onSuccess(Void aVoid) {

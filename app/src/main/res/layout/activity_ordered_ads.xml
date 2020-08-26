@@ -14,9 +14,10 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigation"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -28,5 +29,19 @@
         app:itemIconTint="@drawable/selector"
         app:itemTextColor="@drawable/selector"
         app:menu="@menu/bottom_navigation"/>
+
+    <TextView
+        android:id="@+id/orderedAds_noAds"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/bree_serif"
+        android:text="@string/trenutno_nemate_narucenih_usluga"
+        android:textSize="20sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/orderedAdsList"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/orderedAdsList"
+        app:layout_constraintVertical_bias="0.17000002" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

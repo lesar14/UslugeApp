@@ -144,7 +144,7 @@ public class Register extends AppCompatActivity {
                             Toast.makeText(Register.this, "Uspješna registracija.", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(getApplicationContext(), SearchAds.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
                         }else {
-                            Toast.makeText(Register.this, "E-mail se već koristi.", Toast.LENGTH_LONG).show();
+                            Toast.makeText(Register.this, "Neuspješna registracija." + task.getException().getMessage(), Toast.LENGTH_LONG).show();
                             progressBar.setVisibility(View.GONE);
                         }
                     }

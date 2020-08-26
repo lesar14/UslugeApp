@@ -128,7 +128,6 @@ public class Login extends AppCompatActivity {
                         }
                     }
                 });
-
                 resetPassword.setNegativeButton("Ne", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

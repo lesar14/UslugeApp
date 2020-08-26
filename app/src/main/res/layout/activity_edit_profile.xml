@@ -53,11 +53,20 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="15sp"
             android:layout_marginBottom="15sp"
-            android:drawableEnd="@drawable/ic_edit_color"
+            android:drawableEnd="@drawable/ic_edit_primary_color"
             android:fontFamily="@font/bree_serif"
             android:text="@string/ime_i_prezime"
             android:textColor="@color/primary"
             android:textSize="32sp" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignBottom="@+id/imgUser"
+            android:layout_marginStart="-15dp"
+            android:layout_toEndOf="@+id/imgUser"
+            app:srcCompat="@drawable/ic_add_photo" />
 
 
     </RelativeLayout>

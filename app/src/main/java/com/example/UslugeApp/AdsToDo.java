@@ -34,6 +34,7 @@ public class AdsToDo extends AppCompatActivity {
     Query query;
     FirebaseAuth fAuth;
     String user;
+    TextView adsToDo_noAds;
 
 
     private FirebaseFirestore firebaseFirestore;
@@ -51,6 +52,7 @@ public class AdsToDo extends AppCompatActivity {
         user = Objects.requireNonNull(fAuth.getCurrentUser()).getUid();
         firebaseFirestore = FirebaseFirestore.getInstance();
         adsToDoList = findViewById(R.id.adsToDoList);
+        adsToDo_noAds = findViewById(R.id.adsToDo_noAds);
 
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
@@ -90,7 +92,6 @@ public class AdsToDo extends AppCompatActivity {
         });
 
         query = firebaseFirestore.collection("users").document(user).collection("adsToDo");
-
 
         PagedList.Config config = new PagedList.Config.Builder()
                 .setInitialLoadSizeHint(10)
@@ -142,7 +143,7 @@ public class AdsToDo extends AppCompatActivity {
                         break;
                     case FINISHED:
                         if (getItemCount()==0) {
-                            Toast.makeText(AdsToDo.this, "Trenutno nemate aktivnih oglasa.", Toast.LENGTH_SHORT).show();
+                            adsToDo_noAds.setVisibility(View.VISIBLE);
                         }
                         break;
                     case ERROR:
